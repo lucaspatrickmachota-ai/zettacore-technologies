@@ -1,0 +1,32 @@
+[
+  {
+    "id": "pt-porto",
+    "company": "Empresa de redes de proteção",
+    "market": "PT",
+    "source": "Workana",
+    "service": "Web Development + SEO local",
+    "budget": "€450",
+    "priority": "high",
+    "difficulty": "green",
+    "status": "ready",
+    "url": "https://www.workana.com/job/desenvolvimento-de-website-profissional-para-empresa-de-redes-de-protecao-com-foco-em-seo",
+    "need": "Website profissional para empresa no Porto, com serviços, galeria, FAQ, formulário de orçamento, WhatsApp, SEO local e estrutura preparada para crescimento.",
+    "proposal": "Olá,\n\nAnalisei o projeto e acredito que posso ajudar a criar um website profissional, rápido e orientado para a geração de pedidos de orçamento.\n\nA proposta é desenvolver o site em WordPress, com estrutura responsiva, páginas de serviços, galeria, FAQ, formulário de orçamento, integração com WhatsApp/telefone, SEO local básico e preparação para Search Console/Analytics.\n\nPrazo estimado: 10–14 dias.\nValor: 450 €.\n\nComo referência: https://zettacore-technologies.onrender.com/\n\nCumprimentos,\nLucas\nZettaCore Technologies",
+    "notes": "No afirmar experiencia falsa con WordPress/Elementor. Usar el portfolio de ZettaCore como referencia real."
+  },
+  {
+    "id": "us-elementor",
+    "company": "WordPress + Elementor client",
+    "market": "US",
+    "source": "Upwork",
+    "service": "WordPress + Elementor",
+    "budget": "$200",
+    "priority": "high",
+    "difficulty": "green",
+    "status": "ready",
+    "url": "https://www.upwork.com/freelance-jobs/apply/WordPress-and-Elementor-developer-for-new-website-responsive-fast-brand_~022106837279228461504/",
+    "need": "New website in WordPress + Elementor. Client emphasizes brand fidelity, responsive implementation, clean structure and performance; open to new talent.",
+    "proposal": "Hi,\n\nI read the brief carefully, especially your point about staying faithful to the brand rather than simply making something that “works.”\n\nMy approach would be to review the brand guidelines, content and references, then build the approved direction in WordPress + Elementor with a strong focus on responsive behavior, consistency and clean implementation.\n\nI would separately test desktop, tablet and mobile layouts, paying attention to spacing, typography, navigation, buttons, images and Elementor breakpoints.\n\nI’m currently building my freelance portfolio and I’m interested in working with clients who value careful implementation and clear communication.\n\nRelevant project:\nhttps://zettacore-technologies.onrender.com/\n\nThis project is a custom responsive website rather than an Elementor build, so I want to be transparent about that. I would be happy to work from your existing brand assets and references and follow your Elementor requirements closely.\n\nBest,\nLucas\nZettaCore Technologies",
+    "notes": "Upwork: no extra Connects/boost de entrada. Precio objetivo: $200."
+  }
+]
