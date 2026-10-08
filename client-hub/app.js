@@ -1,7 +1,6 @@
 const DEFAULT_SEED=[];
 const KEY="zettacore-client-hub-v1";
 let items=[];
-let items=JSON.parse(localStorage.getItem(KEY)||"null")||seed;
 let filter="all",market="ALL",editing=null;
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const save=()=>localStorage.setItem(KEY,JSON.stringify(items));
@@ -102,4 +101,20 @@ $("#exportBtn").addEventListener("click",()=>{
  const blob=new Blob([JSON.stringify(items,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="zettacore-client-pipeline.json";a.click();URL.revokeObjectURL(a.href);
 });
 const style=document.createElement("style");style.textContent=".toast{position:fixed;right:20px;bottom:20px;padding:12px 15px;background:#0c1822;border:1px solid rgba(99,221,255,.3);border-radius:8px;color:#dff7ff;box-shadow:0 15px 40px rgba(0,0,0,.4);z-index:50;font-size:12px}";document.head.appendChild(style);
-render();
+async function loadRemote(){
+ try{
+  const res=await fetch("data.json?v="+Date.now(),{cache:"no-store"});
+  if(!res.ok) throw new Error("data fetch failed");
+  const remote=await res.json();
+  const local=JSON.parse(localStorage.getItem(KEY)||"[]");
+  const byId=new Map(remote.map(x=>[x.id,x]));
+  for(const x of local) byId.set(x.id,x);
+  items=[...byId.values()];
+  save();
+  render();
+ }catch(e){
+  items=JSON.parse(localStorage.getItem(KEY)||"[]");
+  render();
+ }
+}
+loadRemote();
