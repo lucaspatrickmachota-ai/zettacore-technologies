@@ -1,6 +1,6 @@
 const KEY="zettacore-client-hub-v1";
 let items=[];
-let filter="all",market="ALL",editing=null;
+let filter="all",market="ALL",source="ALL",editing=null;
 
 const $=s=>document.querySelector(s);
 const $$=s=>[...document.querySelectorAll(s)];
@@ -15,7 +15,7 @@ function render(){
   const sort=$("#sort").value;
   let arr=items.filter(x=>
     (filter==="all"||x.status===filter)&&
-    (market==="ALL"||x.market===market)&&
+    (market==="ALL"||x.market===market)&&(source==="ALL"||x.source===source)&&
     (diff==="all"||x.difficulty===diff)&&
     (!q||[x.company,x.service,x.market,x.source,x.need].join(" ").toLowerCase().includes(q))
   );
@@ -96,7 +96,8 @@ $$(".side-filter").forEach(b=>b.addEventListener("click",()=>{
   b.classList.add("active");
   render();
 }));
-$$(".market").forEach(b=>b.addEventListener("click",()=>{
+$(".source-filter").forEach(b=>b.addEventListener("click",()=>{source=b.dataset.source;$(".source-filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}));
+$(".market").forEach(b=>b.addEventListener("click",()=>{
   market=b.dataset.market;
   $$(".market").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");
