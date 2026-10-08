@@ -1,0 +1,1 @@
+User-agent: *\nAllow: /\nSitemap: https://zettacore-technologies.onrender.com/sitemap.xml\n
