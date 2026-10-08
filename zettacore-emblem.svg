@@ -1,15 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 526 526">
 <defs>
-<linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".48" stop-color="#cfd6dd"/><stop offset=".75" stop-color="#ffffff"/><stop offset="1" stop-color="#87929d"/></linearGradient>
-<linearGradient id="blue" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#006cff"/><stop offset=".52" stop-color="#16c8ff"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
-<filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".25" stop-color="#cfd6de"/><stop offset=".5" stop-color="#f7fbff"/><stop offset=".76" stop-color="#a6b0ba"/><stop offset="1" stop-color="#fefefe"/></linearGradient>
+ <linearGradient id="ice" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#0068ff"/><stop offset=".38" stop-color="#00a8ff"/><stop offset=".68" stop-color="#35d9ff"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+ <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset=".5" stop-color="#49d7ff"/><stop offset="1" stop-color="#006bff"/></linearGradient>
+ <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 </defs>
 <g filter="url(#glow)" stroke-linejoin="round">
-<path d="M92 64 H415 L377 126 H145 Z" fill="url(#silver)" stroke="#d8f6ff" stroke-width="3"/>
-<path d="M99 391 L290 117 H367 L176 391 Z" fill="url(#blue)" stroke="#5ce6ff" stroke-width="3"/>
-<path d="M274 123 L433 64 L382 184 L225 290 H164 L274 182 L338 126 Z" fill="url(#silver)" stroke="#eefaff" stroke-width="3"/>
-<path d="M142 392 H391 L425 454 H103 Z" fill="url(#silver)" stroke="#d8f6ff" stroke-width="3"/>
-<path d="M99 391 L154 343 H214 L176 391 Z" fill="#0e8dff" opacity=".9"/>
-<path d="M356 112 L433 64 L407 112 L380 143 Z" fill="#20bfff"/>
+ <!-- dark 3D extrusion -->
+ <path d="M84 55 H414 L392 88 H106 Z" fill="#07101a" stroke="#102d45" stroke-width="6"/>
+ <path d="M93 389 H402 L427 456 H68 Z" fill="#07101a" stroke="#102d45" stroke-width="7"/>
+ <path d="M92 391 L286 115 H360 L174 398 Z" fill="#07101a" stroke="#062a45" stroke-width="7"/>
+ <!-- top metal plate -->
+ <path d="M84 43 H420 L385 111 H119 Z" fill="url(#metal)" stroke="url(#edge)" stroke-width="4"/>
+ <path d="M111 111 H385 L370 130 H126 Z" fill="#09111a"/>
+ <!-- blue lightning diagonal -->
+ <path d="M72 399 L276 106 H355 L166 399 Z" fill="url(#ice)" stroke="#36dcff" stroke-width="4"/>
+ <path d="M72 399 L121 345 H191 L153 399 Z" fill="#0b83ff"/>
+ <!-- silver diagonal slash -->
+ <path d="M274 128 L456 54 L392 185 L229 296 H163 L278 181 L340 131 Z" fill="url(#metal)" stroke="#f2fbff" stroke-width="4"/>
+ <path d="M229 296 H303 L391 184 L357 174 Z" fill="#07111a" opacity=".95"/>
+ <!-- lower plate -->
+ <path d="M143 390 H386 L426 455 H102 Z" fill="url(#metal)" stroke="url(#edge)" stroke-width="4"/>
+ <path d="M126 390 H403 L386 407 H139 Z" fill="#111923"/>
+ <!-- bright energy cuts -->
+ <path d="M120 344 L178 278 H207 L153 344 Z" fill="#11b9ff"/>
+ <path d="M356 114 L456 54 L423 103 L382 144 Z" fill="#28c8ff"/>
 </g>
 </svg>
