@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#05070a">
+<title>ZettaCore Client Hub</title>
+<link rel="icon" href="emblem.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="emblem.svg" alt="ZettaCore">
+      <div><strong>ZETTA<span>CORE</span></strong><small>CLIENT HUB</small></div>
+    </div>
+    <div class="sidebar-block">
+      <div class="side-label">PIPELINE</div>
+      <button class="side-filter active" data-filter="all"><span>All opportunities</span><b id="countAll">0</b></button>
+      <button class="side-filter" data-filter="new"><span>New</span><b id="countNew">0</b></button>
+      <button class="side-filter" data-filter="ready"><span>Ready to review</span><b id="countReady">0</b></button>
+      <button class="side-filter" data-filter="sent"><span>Sent</span><b id="countSent">0</b></button>
+    </div>
+    <div class="sidebar-block">
+      <div class="side-label">MARKETS</div>
+      <div class="market-grid">
+        <button class="market active" data-market="ALL">ALL</button>
+        <button class="market" data-market="ES">ES</button>
+        <button class="market" data-market="PT">PT</button>
+        <button class="market" data-market="US">US</button>
+        <button class="market" data-market="UK">UK</button>
+        <button class="market" data-market="IE">IE</button>
+        <button class="market" data-market="NL">NL</button>
+      </div>
+    </div>
+    <div class="sidebar-foot">
+      <span class="status-dot"></span> Local workspace
+      <small>Notes and status are stored in this browser only.</small>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">ZETTACORE / CLIENT ACQUISITION</div>
+        <h1>Client Pipeline</h1>
+        <p>Detectar → analizar → preparar → revisar → enviar.</p>
+      </div>
+      <div class="top-actions">
+        <button class="ghost-btn" id="exportBtn">Exportar</button>
+        <button class="primary-btn" id="addBtn">+ Nueva oportunidad</button>
+      </div>
+    </header>
+
+    <section class="metrics">
+      <article class="metric"><span>OPPORTUNITIES</span><strong id="mTotal">0</strong><small>Total</small></article>
+      <article class="metric hot"><span>HIGH PRIORITY</span><strong id="mHigh">0</strong><small>Today</small></article>
+      <article class="metric"><span>READY</span><strong id="mReady">0</strong><small>Needs review</small></article>
+      <article class="metric"><span>WON</span><strong id="mWon">0</strong><small>Closed</small></article>
+    </section>
+
+    <section class="toolbar">
+      <label class="search"><span>⌕</span><input id="search" placeholder="Buscar empresa, servicio, país..."></label>
+      <select id="difficulty">
+        <option value="all">Todas las dificultades</option>
+        <option value="green">🟢 Verde</option>
+        <option value="yellow">🟡 Amarillo</option>
+        <option value="red">🔴 Rojo</option>
+      </select>
+      <select id="sort">
+        <option value="priority">Prioridad</option>
+        <option value="newest">Más recientes</option>
+        <option value="budget">Mayor presupuesto</option>
+      </select>
+    </section>
+
+    <section class="notice">
+      <span class="notice-icon">✓</span>
+      <div><strong>Human-in-the-loop</strong><p>El Hub prepara el trabajo. El último clic en la plataforma lo haces tú.</p></div>
+    </section>
+
+    <section id="cards" class="cards"></section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <button class="close" id="closeModal">×</button>
+    <div class="eyebrow">OPPORTUNITY EDITOR</div>
+    <h2 id="modalTitle">Nueva oportunidad</h2>
+    <form id="opForm">
+      <div class="form-grid">
+        <label>Empresa<input name="company" required></label>
+        <label>País<select name="market"><option>ES</option><option>PT</option><option>US</option><option>UK</option><option>IE</option><option>NL</option></select></label>
+        <label>Fuente<input name="source" placeholder="Upwork, Workana, web..."></label>
+        <label>Servicio<input name="service" required placeholder="Web / Automation / IT..."></label>
+        <label>Presupuesto<input name="budget" placeholder="€450 / $200 / No indicado"></label>
+        <label>Prioridad<select name="priority"><option value="high">Alta</option><option value="medium">Media</option><option value="low">Baja</option></select></label>
+        <label>Dificultad<select name="difficulty"><option value="green">🟢 Verde</option><option value="yellow">🟡 Amarillo</option><option value="red">🔴 Rojo</option></select></label>
+        <label>Estado<select name="status"><option value="new">Nuevo</option><option value="ready">Listo para revisar</option><option value="sent">Enviado</option><option value="interview">Entrevista</option><option value="won">Ganado</option><option value="lost">Perdido</option></select></label>
+        <label class="full">Enlace<input name="url" type="url" placeholder="https://..."></label>
+        <label class="full">Necesidad<textarea name="need" rows="3" required></textarea></label>
+        <label class="full">Propuesta preparada<textarea name="proposal" rows="8" required></textarea></label>
+        <label class="full">Notas<textarea name="notes" rows="3" placeholder="Notas internas..."></textarea></label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="ghost-btn" id="cancelBtn">Cancelar</button>
+        <button class="primary-btn" type="submit">Guardar oportunidad</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
