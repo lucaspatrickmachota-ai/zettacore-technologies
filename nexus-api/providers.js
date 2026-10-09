@@ -76,7 +76,8 @@ async function geminiChat(messages, locale) {
     headers: { "content-type": "application/json", "x-goog-api-key": key },
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: languageInstruction(locale) }] },
-      contents,\n      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS, temperature: 0.4 }
+      contents,
+      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS, temperature: 0.4 }
     })
   });
   const data = await readJson(response);
