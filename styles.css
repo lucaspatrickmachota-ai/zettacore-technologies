@@ -43,3 +43,10 @@
 .hero-logo{width:min(34vw,460px);height:auto;max-height:58vh;object-fit:contain;display:block;margin:0 auto;}
 @media(max-width:980px){.hero-logo-wrap{right:0;width:42vw;height:54vh;top:15%;}.hero-logo{width:min(38vw,350px);max-height:46vh}}
 @media(max-width:640px){.hero-logo-wrap{width:78vw;height:68vw;right:11vw;top:12%;}.hero-logo{width:min(72vw,330px);max-height:none}.hero-content{margin-top:250px}}
+
+
+/* Mobile-first logo alignment fix: clean separation between mark and hero copy */
+.hero-logo-wrap{right:4vw;top:11%;width:36vw;height:62vh;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 0 22px rgba(31,161,255,.12));}
+.hero-logo{width:min(32vw,420px);height:auto;max-height:58vh;object-fit:contain;display:block;margin:0 auto;}
+@media(max-width:980px){.hero-logo-wrap{right:1vw;width:40vw;height:52vh;top:13%;}.hero-logo{width:min(36vw,340px);max-height:44vh}}
+@media(max-width:640px){.hero-logo-wrap{position:relative;top:auto;right:auto;width:100%;height:auto;margin:18px auto 22px;display:flex;justify-content:center;align-items:center;filter:none}.hero-logo{width:min(82vw,360px);max-height:none;height:auto}.hero-content{margin-top:0}.hero{display:flex;flex-direction:column;padding-top:104px;min-height:auto}.hero-content{order:2}.hero-logo-wrap{order:1}.hero-overlay,.hero-grid{pointer-events:none}}
