@@ -1,29 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 526 526">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">ZettaCore Technologies — Z emblem</title><desc id="desc">Geometric brushed-silver Z with restrained electric-blue inlay, no halo.</desc>
 <defs>
- <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".25" stop-color="#cfd6de"/><stop offset=".5" stop-color="#f7fbff"/><stop offset=".76" stop-color="#a6b0ba"/><stop offset="1" stop-color="#fefefe"/></linearGradient>
- <linearGradient id="ice" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#0068ff"/><stop offset=".38" stop-color="#00a8ff"/><stop offset=".68" stop-color="#35d9ff"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
- <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset=".5" stop-color="#49d7ff"/><stop offset="1" stop-color="#006bff"/></linearGradient>
- <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <linearGradient id="metal" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#f8fbff"/><stop offset=".25" stop-color="#aeb9c5"/><stop offset=".48" stop-color="#eef3f8"/><stop offset=".72" stop-color="#7f8b99"/><stop offset="1" stop-color="#dfe6ed"/></linearGradient>
+ <linearGradient id="blue" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#0875ff"/><stop offset=".55" stop-color="#29bfff"/><stop offset="1" stop-color="#8ce9ff"/></linearGradient>
+ <linearGradient id="side" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#293847"/><stop offset="1" stop-color="#070d15"/></linearGradient>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dy="9"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 </defs>
-<g filter="url(#glow)" stroke-linejoin="round">
- <!-- dark 3D extrusion -->
- <path d="M84 55 H414 L392 88 H106 Z" fill="#07101a" stroke="#102d45" stroke-width="6"/>
- <path d="M93 389 H402 L427 456 H68 Z" fill="#07101a" stroke="#102d45" stroke-width="7"/>
- <path d="M92 391 L286 115 H360 L174 398 Z" fill="#07101a" stroke="#062a45" stroke-width="7"/>
- <!-- top metal plate -->
- <path d="M84 43 H420 L385 111 H119 Z" fill="url(#metal)" stroke="url(#edge)" stroke-width="4"/>
- <path d="M111 111 H385 L370 130 H126 Z" fill="#09111a"/>
- <!-- blue lightning diagonal -->
- <path d="M72 399 L276 106 H355 L166 399 Z" fill="url(#ice)" stroke="#36dcff" stroke-width="4"/>
- <path d="M72 399 L121 345 H191 L153 399 Z" fill="#0b83ff"/>
- <!-- silver diagonal slash -->
- <path d="M274 128 L456 54 L392 185 L229 296 H163 L278 181 L340 131 Z" fill="url(#metal)" stroke="#f2fbff" stroke-width="4"/>
- <path d="M229 296 H303 L391 184 L357 174 Z" fill="#07111a" opacity=".95"/>
- <!-- lower plate -->
- <path d="M143 390 H386 L426 455 H102 Z" fill="url(#metal)" stroke="url(#edge)" stroke-width="4"/>
- <path d="M126 390 H403 L386 407 H139 Z" fill="#111923"/>
- <!-- bright energy cuts -->
- <path d="M120 344 L178 278 H207 L153 344 Z" fill="#11b9ff"/>
- <path d="M356 114 L456 54 L423 103 L382 144 Z" fill="#28c8ff"/>
-</g>
-</svg>
+<g filter="url(#shadow)" stroke-linejoin="round">
+ <path d="M76 86 H444 L403 166 H239 L441 345 L397 426 H68 L111 346 H273 L70 166 Z" fill="url(#side)" stroke="#263a4e" stroke-width="5"/>
+ <path d="M66 72 H449 L408 151 H244 L445 337 L402 417 H58 L101 338 H267 L60 151 Z" fill="url(#metal)" stroke="#e5edf5" stroke-width="3"/>
+ <path d="M87 94 H413 L385 130 H218 L412 310 L387 373 H95 L122 337 H303 L92 130 Z" fill="#111a25"/>
+ <path d="M122 337 H303 L412 310 L387 373 H95 Z" fill="url(#metal)" opacity=".12"/>
+ <path d="M102 148 H244 L427 319 L401 360 L188 160 H95 Z" fill="url(#blue)" opacity=".95"/>
+ <path d="M104 151 H239 L419 319" fill="none" stroke="#8ce9ff" stroke-width="4" opacity=".95"/>
+ <path d="M117 339 H285 L397 339 L387 358 H107 Z" fill="url(#metal)"/>
+ <path d="M78 72 H449 L408 151 H244 L445 337 L402 417 H58 L101 338 H267 L60 151 H208 L246 187 H133 L145 207 L289 338 H385 L399 365 H93 L123 310 H231 L90 151 Z" fill="url(#metal)" opacity=".96"/>
+ <path d="M78 72 H449 L408 151 H244 L445 337 L402 417 H58 L101 338 H267 L60 151 H208 L246 187 H133 L145 207 L289 338 H385 L399 365 H93 L123 310 H231 L90 151 Z" fill="none" stroke="#d9e3ed" stroke-width="2"/>
+ <path d="M91 91 H414 L395 126 H226 L422 312 L391 397 H91 L118 349 H290 L102 169 H177 L359 337 H379 L398 317 L203 139 H374 L393 104 H91 Z" fill="#0b111a" opacity=".96"/>
+ <path d="M95 100 H394 L375 127 H214 L407 314 L386 383 H90 L111 351 H291 L111 174 H166 L367 360 H377 L390 321 L191 139 H366 L382 112 H95 Z" fill="url(#metal)"/>
+ <path d="M114 119 H359 L342 137 H206 L383 308 L369 352 H130 L151 329 H312 L146 163 H174 L354 337 H355 L367 309 L166 138 H351 L362 119 Z" fill="#0a111b"/>
+ <path d="M148 153 H204 L383 320 L374 337 L179 155 Z" fill="url(#blue)"/>
+ <path d="M148 153 H204 L383 320" fill="none" stroke="#9ceaff" stroke-width="3"/>
+</g></svg>
