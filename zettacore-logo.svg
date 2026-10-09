@@ -5,7 +5,7 @@
  <linearGradient id="blue" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#0875ff"/><stop offset=".55" stop-color="#29bfff"/><stop offset="1" stop-color="#8ce9ff"/></linearGradient>
  <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 </defs>
-<rect width="1200" height="900" fill="#05070a"/>
+
 <g transform="translate(240 65) scale(1.45)" stroke-linejoin="round">
  <path d="M78 72 H449 L408 151 H244 L445 337 L402 417 H58 L101 338 H267 L60 151 H208 L246 187 H133 L145 207 L289 338 H385 L399 365 H93 L123 310 H231 L90 151 Z" fill="url(#metal)" stroke="#dce5ee" stroke-width="2"/>
  <path d="M148 153 H204 L383 320 L374 337 L179 155 Z" fill="url(#blue)" filter="url(#glow)"/>
