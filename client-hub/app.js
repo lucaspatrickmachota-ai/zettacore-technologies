@@ -1,172 +1,27 @@
+const DEFAULT_SEED=[{"id":"pt-porto","company":"Empresa de redes de proteção","market":"PT","source":"Workana","service":"Web Development + SEO local","budget":"€450","priority":"high","difficulty":"green","status":"ready","url":"https://www.workana.com/pt/job/desenvolvimento-de-website-profissional-para-empresa-de-redes-de-protecao-com-foco-em-seo","need":"Website profissional no Porto para gerar leads e pedidos de orçamento: serviços, galeria, FAQ, formulário, WhatsApp, SEO local, performance e estrutura preparada para Google Ads.","proposal":"Olá,\\n\\nAnalisei o projeto e acredito que posso ajudar a criar um website profissional, rápido e orientado para a geração de pedidos de orçamento.\\n\\nA proposta é desenvolver o site em WordPress, com estrutura responsiva, páginas de serviços, galeria, FAQ, formulário de orçamento, integração com WhatsApp/telefone, SEO local básico e preparação para Search Console/Analytics.\\n\\nPrazo estimado: 10–14 dias.\\nValor: 450 €.\\n\\nComo referência: https://zettacore-technologies.onrender.com/\\n\\nCumprimentos,\\nLucas\\nZettaCore Technologies","notes":"O projeto pede portfolio. Usar apenas o portfolio real da ZettaCore; não alegar experiência falsa com WordPress/Elementor. Anúncio em análise de propostas; 65 propostas no momento da verificação."},{"id":"us-elementor","company":"WordPress + Elementor client","market":"US","source":"Upwork","service":"WordPress + Elementor","budget":"$200","priority":"high","difficulty":"green","status":"ready","url":"https://www.upwork.com/freelance-jobs/apply/WordPress-and-Elementor-developer-for-new-website-responsive-fast-brand_~022106837279228461504/","need":"New WordPress + Elementor website. Brand fidelity, responsive desktop/tablet/mobile, performance and clean implementation. Client explicitly welcomes new talent.","proposal":"Hi,\\n\\nI read the brief carefully, especially your point about staying faithful to the brand rather than simply making something that “works.”\\n\\nMy approach would be to review the brand guidelines, content and references, then build the approved direction in WordPress + Elementor with a strong focus on responsive behavior, consistency and clean implementation.\\n\\nI would separately test desktop, tablet and mobile layouts, paying attention to spacing, typography, navigation, buttons, images and Elementor breakpoints.\\n\\nI’m currently building my freelance portfolio and I’m interested in working with clients who value careful implementation and clear communication.\\n\\nRelevant project:\\nhttps://zettacore-technologies.onrender.com/\\n\\nThis project is a custom responsive website rather than an Elementor build, so I want to be transparent about that. I would be happy to work from your existing brand assets and references and follow your Elementor requirements closely.\\n\\nBest,\\nLucas\\nZettaCore Technologies","notes":"Upwork indica $200 fixed, worldwide, new talent welcome y el cliente pide no boost. Propuesta para revisar antes de enviar."},{"id":"workana-b2b-interactive","company":"B2B prospección — landings interactivas","market":"ES","source":"Workana","service":"WordPress + landing pages interactivas","budget":"No indicado","priority":"medium","difficulty":"yellow","status":"ready","url":"https://www.workana.com/pt/job/disenador-grafico-y-desarrollador-web-con-experiencia-en-wordpress-para-prospeccion-b2b","need":"Piezas de prospección B2B para varios sectores: landings, quiz con lógica y resultados, infografía interactiva y publicación en WordPress. Piden experiencia demostrable y alta autonomía.","proposal":"Hola,\\n\\nHe revisado el proyecto y me interesa especialmente el enfoque modular: crear piezas de prospección que puedan reutilizarse y adaptarse a distintos sectores.\\n\\nPuedo trabajar sobre un manual de marca y referencias existentes, cuidando la implementación responsive en WordPress y las interacciones sencillas de las landings.\\n\\nPara mantener el proyecto controlado, propondría empezar por un primer bloque, validar diseño e interacción y después reutilizar la estructura para los siguientes sectores.\\n\\nComo referencia real: https://zettacore-technologies.onrender.com/\\n\\nQuedo disponible para revisar las referencias y estimar el primer bloque.\\n\\nUn saludo,\\nLucas\\nZettaCore Technologies","notes":"118 propuestas y 133 interesados en la comprobación. Yellow por exigir portfolio demostrable y autonomía en interactividad/WordPress."},{"id":"workana-eduportugal","company":"EduPortugal — contenido digital + WordPress + automatización","market":"PT","source":"Workana","service":"WordPress + operaciones digitales + automatización","budget":"No indicado","priority":"low","difficulty":"yellow","status":"ready","url":"https://www.workana.com/pt/job/gestor-de-conteudo-digital-com-foco-em-marketing-e-ia-para-eduportugal","need":"Colaboración remota recurrente de 3 meses: actualizar WordPress, newsletters, ManyChat, revisión de contenido y apoyo operativo en un entorno con IA ya implantada.","proposal":"Olá,\\n\\nO projeto chamou-me a atenção pelo componente operacional e pelo uso de WordPress e automação num fluxo recorrente.\\n\\nTenho interesse em apoiar a atualização do site, organização de conteúdos e tarefas digitais repetitivas, sempre trabalhando a partir dos materiais e processos definidos pela equipa.\\n\\nComo referência técnica, apresento o projeto da ZettaCore Technologies: https://zettacore-technologies.onrender.com/\\n\\nGostaria de conhecer as ferramentas já utilizadas e o volume semanal de tarefas para confirmar o melhor encaixe.\\n\\nCumprimentos,\\nLucas\\nZettaCore Technologies","notes":"3 meses y potencial de longo prazo, pero exige RD Station, ManyChat, Canva y experiencia práctica en WordPress; por eso yellow/low."},{"id":"upwork-python-csv","company":"Python Automation Script — Excel/CSV","market":"WORLD","source":"Upwork","service":"Python + Excel/CSV automation","budget":"$100","priority":"low","difficulty":"red","status":"new","url":"https://www.upwork.com/freelance-jobs/apply/Python-Automation-Script-Excel-CSV-Data-Processing_~022102452385220593190/","need":"Script Python para limpiar/validar Excel/CSV, eliminar duplicados, tratar valores inválidos, generar output y resumen. Pide perfil Expert y tiene 50+ propuestas.","proposal":"Hi,\\n\\nI’m interested in the problem because it is a well-defined data-processing workflow: clean input, validate records, apply rules, generate an output file and provide a concise processing report.\\n\\nI’m currently building my Python automation portfolio, so I would be happy to discuss the sample files and exact rules before confirming the final implementation scope.\\n\\nBest,\\nLucas\\nZettaCore Technologies","notes":"Rojo por nivel Expert + Python/Data Extraction y 50+ propuestas. Mantener como oportunidad de aprendizaje, no prioritaria."},{"id":"upwork-ai-dashboard","company":"AI Dashboard & Reporting Automation Specialist","market":"WORLD","source":"Upwork","service":"Dashboard + reporting automation","budget":"$4,750","priority":"low","difficulty":"red","status":"new","url":"https://www.upwork.com/freelance-jobs/apply/Dashboard-Reporting-Automation-Specialist_~022103923828608926829/","need":"Automatización de dashboard y reporting con Python/Excel y análisis de datos. Proyecto ongoing, intermediate, $4,750 fixed.","proposal":"Hi,\\n\\nThe reporting-automation problem is closely aligned with the direction of my technology work: turning repetitive reporting into a cleaner, more reliable workflow with dashboards and automation.\\n\\nBefore committing, I would want to review the current data sources, reporting workflow and exact automation scope.\\n\\nBest,\\nLucas\\nZettaCore Technologies","notes":"Rojo por alcance, presupuesto y expectativas; no priorizar ahora. Puede servir como referencia del tipo de proyecto al que queremos llegar."},{"id":"upwork-elementor-2500","company":"WordPress Website Development Using Elementor","market":"US","source":"Upwork","service":"WordPress + Elementor","budget":"$2,500","priority":"medium","difficulty":"yellow","status":"ready","url":"https://www.upwork.com/freelance-jobs/apply/WordPress-Website-Development-Using-Elementor_~022107117319774480416/","need":"Website from prepared content and visual examples using WordPress + Elementor; responsive, brand-faithful build and deadline focus. Intermediate level, complex project, 50+ proposals.","proposal":"Hi,\\n\\nI reviewed your brief and the fact that the content and visual references are already prepared makes a structured Elementor implementation possible.\\n\\nI would first map the page system, then build the approved layouts in WordPress + Elementor, test desktop/tablet/mobile separately, and keep the implementation clean and easy to maintain.\\n\\nI’m currently growing my freelance portfolio, so I want to be transparent about that while emphasizing careful execution and communication.\\n\\nRelevant project: https://zettacore-technologies.onrender.com/\\n\\nBest,\\nLucas\\nZettaCore Technologies","notes":"Yellow: complex/intermediate, 50+ proposals. Apply only if the scope can be controlled and portfolio requirement is acceptable."},{"id":"upwork-portfolio-100-ca","company":"WordPress Elementor Personal Portfolio","market":"US","source":"Upwork","service":"WordPress + Elementor","budget":"$100","priority":"low","difficulty":"yellow","status":"new","url":"https://www.upwork.com/freelance-jobs/apply/WordPress-Elementor-Designer-For-Personal-Portfolio-Website_~022106384770668426493/","need":"Simple modern personal portfolio: Home, About, Portfolio, Skills/Experience, Contact; responsive, basic SEO and performance. Client in California; 20–50 proposals, 1 hire and 1 interview already.","proposal":"Hi,\\n\\nI like the clarity of this project: a focused portfolio site with a clean visual system, responsive layout, contact flow and basic SEO/performance setup.\\n\\nI can work from your content and references and keep the build lightweight and easy to maintain in WordPress + Elementor.\\n\\nRelevant project: https://zettacore-technologies.onrender.com/\\n\\nBest,\\nLucas\\nZettaCore Technologies","notes":"Yellow/low because the client already has one hire and one interview; monitor rather than spend Connects aggressively."},{"id":"workana-wp-team","company":"Contratação de Desenvolvedores WordPress","market":"PT","source":"Workana","service":"WordPress maintenance + development","budget":"No indicado","priority":"medium","difficulty":"yellow","status":"new","url":"https://www.workana.com/pt/job/contratacao-de-desenvolvedores-wordpress-e-vendedor-de-sistemas","need":"Recurring WordPress work: new sites, maintenance and optimization; also sales role. WordPress/PHP/HTML/CSS/JS. 44 proposals.","proposal":"Olá,\\n\\nInteressa-me especialmente a vertente de desenvolvimento e manutenção WordPress, sobretudo para trabalhos organizados por blocos e com requisitos claros.\\n\\nPosso apoiar na construção e manutenção de páginas, responsive, pequenas melhorias de front-end e tarefas técnicas acompanhadas de testes antes da entrega.\\n\\nComo referência real: https://zettacore-technologies.onrender.com/\\n\\nCumprimentos,\\nLucas\\nZettaCore Technologies","notes":"Yellow because the listing asks for experienced WordPress plus PHP/JS. 44 proposals already."},{"id":"workana-wp-optimize","company":"Revisão e Otimização Completa de Site WordPress","market":"PT","source":"Workana","service":"WordPress + performance + SEO technical","budget":"No indicado","priority":"medium","difficulty":"yellow","status":"new","url":"https://www.workana.com/pt/job/revisao-e-otimizacao-completa-de-site-wordpress","need":"WordPress/Elementor site cleanup, preserving old URLs/blog, hybrid landing pages, Schema.org JSON, cache and performance optimization on Hostgator.","proposal":"Olá,\\n\\nO projeto está bem definido e gosto especialmente do facto de todo o conteúdo já ser fornecido. A minha abordagem seria trabalhar com cópia/backup antes das alterações, preservar URLs existentes e validar o site após cada bloco.\\n\\nPosso apoiar na organização das páginas, responsive, implementação de dados estruturados e otimizações básicas, mantendo a intervenção controlada.\\n\\nCumprimentos,\\nLucas\\nZettaCore Technologies","notes":"Yellow: 43 proposals and includes server cleanup, Schema.org and performance work."},{"id":"workana-woocommerce-setup","company":"Configuración y Optimización de Tienda Online WordPress + WooCommerce","market":"ES","source":"Workana","service":"WordPress + WooCommerce","budget":"No indicado","priority":"medium","difficulty":"yellow","status":"new","url":"https://www.workana.com/pt/job/configuracion-y-optimizacion-de-tienda-online-wordpress-y-woocommerce","need":"Configure WordPress and optimize an existing WooCommerce store; visual and technical improvements. 56 proposals.","proposal":"Hola,\\n\\nHe revisado el proyecto y el alcance es compatible con un trabajo por etapas: configuración de WordPress/WooCommerce, estructura de tienda, ajustes visuales y pruebas de funcionamiento antes de la entrega.\\n\\nMe centraría en mantener una instalación ligera y fácil de administrar, documentando los cambios realizados.\\n\\nUn saludo,\\nLucas\\nZettaCore Technologies","notes":"Yellow: WooCommerce adds complexity and there are 56 proposals. Good as a supervised first ecommerce project, not as an advanced custom build."},{"id":"freelancer-woocommerce-78","company":"WooCommerce Store Setup","market":"WORLD","source":"Freelancer","service":"WordPress + WooCommerce","budget":"$100–500","priority":"medium","difficulty":"yellow","status":"ready","url":"https://www.freelancer.com/projects/wordpress/woocommerce-store-setup-40746668","need":"Existing WordPress; minimal WooCommerce store with five products, PayPal/Stripe/Google Pay, responsive storefront, lightweight plugins and basic speed/security. 78 proposals, average bid $245.","proposal":"Hi,\\n\\nYour project is a good fit for a lightweight WooCommerce setup: clean storefront, five initial products, essential payment extensions, responsive checks and a simple admin structure for future products.\\n\\nI would keep the plugin stack minimal and test checkout in sandbox before handover.\\n\\nRelevant project: https://zettacore-technologies.onrender.com/\\n\\nBest,\\nLucas\\nZettaCore Technologies","notes":"Yellow: feasible scope, but payment setup needs careful testing and 78 proposals means strong competition."},{"id":"freelancer-restaurant-69","company":"Modern WordPress Restaurant Reservations","market":"WORLD","source":"Freelancer","service":"WordPress + reservations","budget":"$250–750","priority":"low","difficulty":"red","status":"new","url":"https://www.dk.freelancer.com/projects/html/modern-wordpress-restaurant-reservations","need":"Restaurant website centered on real-time table booking, visual table selection, date/time availability, special requests, confirmation emails and mobile performance.","proposal":"Hi,\\n\\nI reviewed the booking flow and the project is interesting, but I would want to validate the reservation plugin and exact table-management requirements before committing.\\n\\nThe public-facing site and responsive structure are within my current direction; the real-time booking logic needs careful scope confirmation.\\n\\nBest,\\nLucas\\nZettaCore Technologies","notes":"Red for now: real-time availability and visual table selection need more specialist experience. Do not prioritize."},{"id":"freelancer-speed-59","company":"Boost WordPress Load Speed","market":"WORLD","source":"Freelancer","service":"WordPress performance optimization","budget":"$30–250","priority":"low","difficulty":"red","status":"new","url":"https://www.freelancer.com/projects/google-website-optimizer/boost-wordpress-load-speed","need":"Deep performance tuning targeting PageSpeed 90+, GTmetrix A, LCP below 2.5s, caching, minification, database cleanup, WebP and optional CDN.","proposal":"Hi,\\n\\nThe performance goals are clear, especially the measurable PageSpeed and LCP targets. I’m interested in the workflow, but I would first need to audit the hosting stack, theme, plugins and current metrics before estimating the work responsibly.\\n\\nBest,\\nLucas\\nZettaCore Technologies","notes":"Red for first-client strategy: this is a measurable performance-specialist task with 59 proposals. Keep for later."},{"id":"workana-landing-20261002","company":"Desarrollo de Landing Page Profesional en WordPress","market":"ES","source":"Workana","service":"WordPress + Landing Page","budget":"No indicado","priority":"medium","difficulty":"yellow","status":"new","url":"https://www.workana.com/pt/job/desarrollo-de-landing-page-profesional-en-wordpress","need":"Landing page WordPress moderna, responsive y orientada a conversión. Publicada el 2 de octubre de 2026; 109 propuestas y 120 interesados. Piden experiencia demostrable.","proposal":"Hola,\\n\\nHe revisado el proyecto y me interesa especialmente el enfoque de landing page orientada a conversión. Puedo trabajar sobre una estructura clara, responsive y centrada en una experiencia sencilla para el usuario, cuidando rendimiento y organización del contenido.\\n\\nComo referencia real: https://zettacore-technologies.onrender.com/\\n\\nEstoy construyendo mi portfolio técnico de forma progresiva y puedo trabajar siguiendo las referencias y materiales que proporcione el cliente.\\n\\nUn saludo,\\nLucas\\nZettaCore Technologies","notes":"Competencia alta: 109 propuestas. Solo usar si tenemos capacidad/tiempo para una candidatura muy personalizada."},{"id":"workana-reorg-wp-20261003","company":"Reorganización y mejora visual de sitio web en WordPress","market":"ES","source":"Workana","service":"WordPress + UI/UX","budget":"No indicado","priority":"medium","difficulty":"yellow","status":"new","url":"https://www.workana.com/pt/job/reorganizacion-y-mejora-visual-de-sitio-web-en-wordpress","need":"Mejora visual y funcional de un sitio WordPress existente, sin rehacerlo desde cero. Publicado el 3 de octubre de 2026; 55 propuestas.","proposal":"Hola,\\n\\nHe revisado el proyecto y el hecho de trabajar sobre una estructura ya existente permite plantear una mejora por fases: revisar jerarquía visual, responsive, espaciados, tipografía y consistencia de los componentes sin alterar innecesariamente la estructura actual.\\n\\nComo referencia real: https://zettacore-technologies.onrender.com/\\n\\nPuedo trabajar a partir de la estructura y necesidades que proporcione el cliente y entregar los cambios de forma ordenada y comprobada.\\n\\nUn saludo,\\nLucas\\nZettaCore Technologies","notes":"55 propuestas y pide experiencia en WordPress. Yellow: buena práctica para portfolio, pero competencia elevada."},{"id":"workana-woocommerce-maint-20261002","company":"Mantenimiento y optimización continua de e-commerce WordPress/WooCommerce","market":"PT","source":"Workana","service":"WordPress + WooCommerce + mantenimiento","budget":"No indicado","priority":"medium","difficulty":"yellow","status":"new","url":"https://www.workana.com/job/profissional-para-manutencao-e-otimizacao-continua-de-e-commerce-wordpress-woocommerce","need":"Mantenimiento semanal de una tienda WordPress/WooCommerce con Hostinger y Cloudflare: actualizaciones, compatibilidad, seguridad y rendimiento. 31 propuestas.","proposal":"Olá,\\n\\nInteressa-me o formato recorrente deste projeto, sobretudo pelo foco em manutenção organizada, atualizações e verificação de compatibilidade.\\n\\nA minha abordagem seria trabalhar sempre com backup, checklist de atualizações e validação do site após cada alteração, evitando intervenções desnecessárias.\\n\\nComo referência real: https://zettacore-technologies.onrender.com/\\n\\nCumprimentos,\\nLucas\\nZettaCore Technologies","notes":"31 propostas. Yellow porque envolve WooCommerce/Cloudflare e manutenção de produção; boa oportunidade se o cliente aceitar perfil em crescimento."},{"id":"workana-ai-assistant-20260904","company":"Assistente Virtual de Suporte ao Cliente com IA","market":"PT","source":"Workana","service":"AI assistant + Python + automation","budget":"No indicado","priority":"low","difficulty":"red","status":"new","url":"https://www.workana.com/pt/job/desenvolvimento-de-assistente-virtual-de-suporte-ao-cliente-com-inteligencia-artificial","need":"Assistente de IA para pequenas e médias empresas: FAQ, base de conhecimento, classificação, handoff humano, registo e múltiplos idiomas. 42 propostas.","proposal":"Olá,\\n\\nO projeto está alinhado com a direção tecnológica da ZettaCore, especialmente no uso de IA, bases de conhecimento e automação de atendimento. Neste momento, gostaria primeiro de validar o escopo técnico e as integrações necessárias antes de assumir uma implementação completa.\\n\\nA minha linha de trabalho inclui projetos práticos em IA, automação, Python e sistemas digitais.\\n\\nCumprimentos,\\nLucas\\nZettaCore Technologies","notes":"Red para candidatura imediata: projeto grande e pede experiência em NLP/IA e integrações. Manter como referência para projetos futuros."}];
 const KEY="zettacore-client-hub-v1";
 let items=[];
 let filter="all",market="ALL",source="ALL",editing=null;
-
-const $=s=>document.querySelector(s);
-const $$=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const save=()=>localStorage.setItem(KEY,JSON.stringify(items));
 const priorityRank={high:3,medium:2,low:1};
 const budgetValue=v=>{const n=String(v||"").replace(/[^0-9.]/g,"");return parseFloat(n)||0};
-
 function statusLabel(s){return{new:"Nuevo",ready:"Listo para revisar",sent:"Enviado",interview:"Entrevista",won:"Ganado",lost:"Perdido"}[s]||s}
-function render(){
-  const q=$("#search").value.toLowerCase().trim();
-  const diff=$("#difficulty").value;
-  const sort=$("#sort").value;
-  let arr=items.filter(x=>
-    (filter==="all"||x.status===filter)&&
-    (market==="ALL"||x.market===market)&&(source==="ALL"||x.source===source)&&
-    (diff==="all"||x.difficulty===diff)&&
-    (!q||[x.company,x.service,x.market,x.source,x.need].join(" ").toLowerCase().includes(q))
-  );
-  arr.sort((a,b)=>
-    sort==="budget"?budgetValue(b.budget)-budgetValue(a.budget):
-    sort==="newest"?String(b.id).localeCompare(String(a.id)):
-    priorityRank[b.priority]-priorityRank[a.priority]
-  );
-  $("#cards").innerHTML=arr.length?arr.map(card).join(""):'<div class="empty">No hay oportunidades con estos filtros.</div>';
-  updateMetrics();
-}
-function card(x){
-  const diff=x.difficulty==="green"?"🟢":x.difficulty==="yellow"?"🟡":"🔴";
-  const statusClass=["ready","sent","won","lost"].includes(x.status)?x.status:"";
-  return `<article class="card">
-    <div class="card-head">
-      <span class="country">${escapeHtml(x.market)} · ${escapeHtml(x.source)}</span>
-      <span class="badge ${escapeHtml(x.priority)}">${x.priority==="high"?"HIGH PRIORITY":x.priority.toUpperCase()}</span>
-    </div>
-    <h3>${escapeHtml(x.company)}</h3>
-    <div class="meta">${escapeHtml(x.budget||"Presupuesto no indicado")} · <span class="status ${statusClass}">${statusLabel(x.status)}</span></div>
-    <div class="service">${escapeHtml(x.service)}</div>
-    <p>${escapeHtml(x.need)}</p>
-    <div class="chips">
-      <span class="chip">${diff} ${escapeHtml(x.difficulty)}</span>
-      <span class="chip">${escapeHtml(x.market)}</span>
-      <span class="chip">${escapeHtml(x.source)}</span>
-    </div>
-    <div class="card-actions">
-      <button class="mini primary" data-action="proposal" data-id="${escapeHtml(x.id)}">Ver propuesta</button>
-      <button class="mini" data-action="copy" data-id="${escapeHtml(x.id)}">Copiar</button>
-      ${x.url?'<button class="mini" data-action="open" data-id="'+escapeHtml(x.id)+'">Abrir proyecto ↗</button>':''}
-      <button class="mini" data-action="edit" data-id="${escapeHtml(x.id)}">Editar</button>
-      <button class="mini" data-action="status" data-id="${escapeHtml(x.id)}">Marcar enviado</button>
-    </div>
-  </article>`
-}
-function escapeHtml(s){
-  return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
-}
-function updateMetrics(){
-  $("#mTotal").textContent=items.length;
-  $("#mHigh").textContent=items.filter(x=>x.priority==="high"&&x.status!=="lost").length;
-  $("#mReady").textContent=items.filter(x=>x.status==="ready").length;
-  $("#mWon").textContent=items.filter(x=>x.status==="won").length;
-  $("#countAll").textContent=items.length;
-  $("#countNew").textContent=items.filter(x=>x.status==="new").length;
-  $("#countReady").textContent=items.filter(x=>x.status==="ready").length;
-  $("#countSent").textContent=items.filter(x=>x.status==="sent").length;
-}
-function openModal(item=null){
-  editing=item?.id||null;
-  $("#modalTitle").textContent=item?"Editar oportunidad":"Nueva oportunidad";
-  const f=$("#opForm");
-  f.reset();
-  if(item)Object.entries(item).forEach(([k,v])=>{if(f.elements[k])f.elements[k].value=v});
-  $("#modal").classList.add("open");
-}
-function closeModal(){ $("#modal").classList.remove("open"); editing=null; }
-function copyProposal(x){
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(x.proposal).then(()=>flash("Propuesta copiada al portapapeles."));
-  }else{
-    const ta=document.createElement("textarea");ta.value=x.proposal;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();flash("Propuesta copiada.");
-  }
-}
-function flash(msg){
-  const n=document.createElement("div");
-  n.className="toast";
-  n.textContent=msg;
-  document.body.appendChild(n);
-  setTimeout(()=>n.remove(),1800);
-}
-
-$$(".side-filter").forEach(b=>b.addEventListener("click",()=>{
-  filter=b.dataset.filter;
-  $$(".side-filter").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active");
-  render();
-}));
-$(".source-filter").forEach(b=>b.addEventListener("click",()=>{source=b.dataset.source;$(".source-filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}));
-$(".market").forEach(b=>b.addEventListener("click",()=>{
-  market=b.dataset.market;
-  $$(".market").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active");
-  render();
-}));
-$("#search").addEventListener("input",render);
-$("#difficulty").addEventListener("change",render);
-$("#sort").addEventListener("change",render);
-$("#addBtn").addEventListener("click",()=>openModal());
-$("#closeModal").addEventListener("click",closeModal);
-$("#cancelBtn").addEventListener("click",closeModal);
-$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
-
-$("#opForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  const f=new FormData(e.target);
-  const data=Object.fromEntries(f.entries());
-  const item={
-    ...data,
-    id:editing||("op-"+Date.now()),
-    company:data.company,market:data.market,source:data.source,service:data.service,
-    budget:data.budget,priority:data.priority,difficulty:data.difficulty,status:data.status,
-    url:data.url,need:data.need,proposal:data.proposal,notes:data.notes
-  };
-  if(editing){
-    const i=items.findIndex(x=>x.id===editing);
-    if(i>=0)items[i]=item;
-  }else items.unshift(item);
-  save(); closeModal(); render(); flash("Oportunidad guardada.");
-});
-
-$("#cards").addEventListener("click",e=>{
-  const b=e.target.closest("button[data-action]");
-  if(!b)return;
-  const x=items.find(i=>i.id===b.dataset.id);
-  if(!x)return;
-  if(b.dataset.action==="copy")copyProposal(x);
-  if(b.dataset.action==="proposal")openModal(x);
-  if(b.dataset.action==="edit")openModal(x);
-  if(b.dataset.action==="open")window.open(x.url,"_blank","noopener");
-  if(b.dataset.action==="status"){x.status="sent";save();render();flash("Marcada como enviada.");}
-});
-
-$("#exportBtn").addEventListener("click",()=>{
-  const blob=new Blob([JSON.stringify(items,null,2)],{type:"application/json"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download="zettacore-client-pipeline.json";
-  a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),0);
-});
-
-const style=document.createElement("style");
-style.textContent=".toast{position:fixed;right:20px;bottom:20px;padding:12px 15px;background:#0c1822;border:1px solid rgba(99,221,255,.3);border-radius:8px;color:#dff7ff;box-shadow:0 15px 40px rgba(0,0,0,.4);z-index:50;font-size:12px}";
-document.head.appendChild(style);
-
-async function loadRemote(){
-  const local=JSON.parse(localStorage.getItem(KEY)||"[]");
-  try{
-    const res=await fetch("data.json?v="+Date.now(),{cache:"no-store"});
-    if(!res.ok)throw new Error("data fetch failed");
-    const remote=await res.json();
-    const byId=new Map(remote.map(x=>[x.id,x]));
-    for(const x of local)byId.set(x.id,x);
-    items=[...byId.values()];
-    save();
-  }catch(e){
-    items=local;
-  }
-  render();
-}
+function render(){const q=$("#search").value.toLowerCase().trim(),diff=$("#difficulty").value,sort=$("#sort").value;let arr=items.filter(x=>(filter==="all"||x.status===filter)&&(market==="ALL"||x.market===market)&&(source==="ALL"||x.source===source)&&(diff==="all"||x.difficulty===diff)&&(!q||[x.company,x.service,x.market,x.source,x.need].join(" ").toLowerCase().includes(q)));arr.sort((a,b)=>sort==="budget"?budgetValue(b.budget)-budgetValue(a.budget):sort==="newest"?String(b.id).localeCompare(String(a.id)):priorityRank[b.priority]-priorityRank[a.priority]);$("#cards").innerHTML=arr.length?arr.map(card).join(""):'<div class="empty">No hay oportunidades con estos filtros.</div>';updateMetrics()}
+function card(x){const diff=x.difficulty==="green"?"🟢":x.difficulty==="yellow"?"🟡":"🔴",statusClass=["ready","sent","won","lost"].includes(x.status)?x.status:"";return `<article class="card"><div class="card-head"><span class="country">${escapeHtml(x.market)} · ${escapeHtml(x.source)}</span><span class="badge ${escapeHtml(x.priority)}">${x.priority==="high"?"HIGH PRIORITY":x.priority.toUpperCase()}</span></div><h3>${escapeHtml(x.company)}</h3><div class="meta">${escapeHtml(x.budget||"Presupuesto no indicado")} · <span class="status ${statusClass}">${statusLabel(x.status)}</span></div><div class="service">${escapeHtml(x.service)}</div><p>${escapeHtml(x.need)}</p><div class="chips"><span class="chip">${diff} ${escapeHtml(x.difficulty)}</span><span class="chip">${escapeHtml(x.market)}</span><span class="chip">${escapeHtml(x.source)}</span></div><div class="card-actions"><button class="mini primary" data-action="proposal" data-id="${escapeHtml(x.id)}">Ver propuesta</button><button class="mini" data-action="copy" data-id="${escapeHtml(x.id)}">Copiar</button>${x.url?'<button class="mini" data-action="open" data-id="'+escapeHtml(x.id)+'">Abrir proyecto ↗</button>':''}<button class="mini" data-action="edit" data-id="${escapeHtml(x.id)}">Editar</button><button class="mini" data-action="status" data-id="${escapeHtml(x.id)}">Marcar enviado</button></div></article>`}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function updateMetrics(){$("#mTotal").textContent=items.length;$("#mHigh").textContent=items.filter(x=>x.priority==="high"&&x.status!=="lost").length;$("#mReady").textContent=items.filter(x=>x.status==="ready").length;$("#mWon").textContent=items.filter(x=>x.status==="won").length;$("#countAll").textContent=items.length;$("#countNew").textContent=items.filter(x=>x.status==="new").length;$("#countReady").textContent=items.filter(x=>x.status==="ready").length;$("#countSent").textContent=items.filter(x=>x.status==="sent").length}
+function openModal(item=null){editing=item?.id||null;$("#modalTitle").textContent=item?"Editar oportunidad":"Nueva oportunidad";const f=$("#opForm");f.reset();if(item)Object.entries(item).forEach(([k,v])=>{if(f.elements[k])f.elements[k].value=v});$("#modal").classList.add("open")}
+function closeModal(){$("#modal").classList.remove("open");editing=null}
+function copyProposal(x){if(navigator.clipboard){navigator.clipboard.writeText(x.proposal).then(()=>flash("Propuesta copiada al portapapeles."));}else{const ta=document.createElement("textarea");ta.value=x.proposal;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();flash("Propuesta copiada.")}}
+function flash(msg){const n=document.createElement("div");n.className="toast";n.textContent=msg;document.body.appendChild(n);setTimeout(()=>n.remove(),1800)}
+$$(".side-filter").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.filter;$$(".side-filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}));
+$$(".market").forEach(b=>b.addEventListener("click",()=>{market=b.dataset.market;$$(".market").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}));
+$$(".source-filter").forEach(b=>b.addEventListener("click",()=>{source=b.dataset.source;$$(".source-filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}));
+$("#search").addEventListener("input",render);$("#difficulty").addEventListener("change",render);$("#sort").addEventListener("change",render);$("#addBtn").addEventListener("click",()=>openModal());$("#closeModal").addEventListener("click",closeModal);$("#cancelBtn").addEventListener("click",closeModal);$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+$("#opForm").addEventListener("submit",e=>{e.preventDefault();const f=new FormData(e.target),data=Object.fromEntries(f.entries()),item={...data,id:editing||("op-"+Date.now())};if(editing){const i=items.findIndex(x=>x.id===editing);if(i>=0)items[i]=item}else items.unshift(item);save();closeModal();render();flash("Oportunidad guardada.")});
+$("#cards").addEventListener("click",e=>{const b=e.target.closest("button[data-action]");if(!b)return;const x=items.find(i=>i.id===b.dataset.id);if(!x)return;if(b.dataset.action==="copy")copyProposal(x);if(b.dataset.action==="proposal"||b.dataset.action==="edit")openModal(x);if(b.dataset.action==="open")window.open(x.url,"_blank","noopener");if(b.dataset.action==="status"){x.status="sent";save();render();flash("Marcada como enviada.")}});
+$("#exportBtn").addEventListener("click",()=>{const blob=new Blob([JSON.stringify(items,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="zettacore-client-pipeline.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),0)});
+const style=document.createElement("style");style.textContent=".toast{position:fixed;right:20px;bottom:20px;padding:12px 15px;background:#0c1822;border:1px solid rgba(99,221,255,.3);border-radius:8px;color:#dff7ff;box-shadow:0 15px 40px rgba(0,0,0,.4);z-index:50;font-size:12px}";document.head.appendChild(style);
+async function loadRemote(){const localRaw=localStorage.getItem(KEY),local=localRaw?JSON.parse(localRaw):[];try{const res=await fetch("./data.json?v="+Date.now(),{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const remote=await res.json();const byId=new Map(remote.map(x=>[x.id,x]));for(const x of local)byId.set(x.id,x);items=[...byId.values()];}catch(e){items=local.length?local:DEFAULT_SEED;}save();render()}
 loadRemote();
