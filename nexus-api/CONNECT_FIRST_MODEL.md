@@ -1,6 +1,6 @@
 # Connect the first real model to Nexus
 
-**Current state:** provider adapters exist, but no provider secret has been configured. The public chat route remains disabled by default. The website's language selector changes the interface language; it does not translate model replies automatically.
+**Current state:** provider adapters are implemented. Configure the Gemini key only in Render's service Environment; never commit it. The public chat route remains disabled by default until abuse controls are ready. The website's language selector changes the interface language; it does not translate model replies automatically.
 
 ## Recommended first experiment: Gemini API
 1. Create an API key in Google AI Studio using the account you control.
@@ -11,7 +11,7 @@
    - `GEMINI_MODEL=gemini-2.5-flash` (or a model currently available to your key)
    - `NEXUS_CHAT_ENABLED=false`
    - `NEXUS_ALLOWED_ORIGINS=https://zettacore-nexus.onrender.com`
-4. Redeploy and check `/api/status`. It should report the provider is present but `aiConnected=false` while the explicit flag is false.
+4. Redeploy and check `/api/status`. If credentials are recognized, `providerConfigured` should be true while `aiConnected=false` because chat is deliberately disabled. The Nexus interface now distinguishes these states.
 5. Do not set `NEXUS_CHAT_ENABLED=true` for a public launch yet. The current request limit is in-memory and per instance, and there is no user authentication, persistent quota accounting, abuse monitoring, or database. Before public activation, implement those controls and test with a controlled private beta.
 
 ## Alternative: Groq
