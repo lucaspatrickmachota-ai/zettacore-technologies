@@ -121,8 +121,7 @@ const server = http.createServer(async (req, res) => {
     return send(res, 200, { ok: true, service: "zettacore-nexus-api", stage: "provider-ready-foundation" }, origin);
   }
 
-  if (req.method === "GET" && req.url === "/api/status") {
-    const provider = selectedProvider();
+  if (req.method === "GET" && req.url === "/api/status") {\n    const provider = selectedProvider();\n    const chatEnabled = process.env.NEXUS_CHAT_ENABLED === "true";
     return send(res, 200, {
       product: "ZettaCore Nexus",
       stage: provider.ready && chatEnabled ? "model-configured" : "prototype",
@@ -131,9 +130,11 @@ const server = http.createServer(async (req, res) => {
       model: provider.model,
       accountsEnabled: false,
       subscriptionsEnabled: false,
-      note: provider.ready
-        ? "Provider credentials are present. Public chat is still subject to provider quotas and prototype safeguards."
-        : "AI provider is not configured. No prompts are sent to an AI provider."
+      note: !provider.ready
+        ? "AI provider is not configured. No prompts are sent to an AI provider."
+        : !chatEnabled
+          ? "Provider credentials are present, but chat is disabled until explicitly enabled."
+          : "Provider is configured. Prototype rate limits apply; authentication is not yet implemented."
     }, origin);
   }
 
@@ -142,8 +143,7 @@ const server = http.createServer(async (req, res) => {
       res.setHeader("retry-after", "60");
       return send(res, 429, { error: "rate_limited", message: "Too many requests. Please wait a minute and try again." }, origin);
     }
-    const provider = selectedProvider();
-    if (!provider.ready) {
+    const provider = selectedProvider();\n    if (process.env.NEXUS_CHAT_ENABLED !== "true" || !provider.ready) {
       return send(res, 503, {
         error: "ai_not_configured",
         message: "The AI model is not configured yet. No user content was sent to an AI provider."
