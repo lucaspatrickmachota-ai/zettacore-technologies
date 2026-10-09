@@ -1,0 +1,28 @@
+{
+  "id": "/",
+  "name": "ZettaCore Nexus",
+  "short_name": "Nexus",
+  "description": "ZettaCore Nexus: una IA con continuidad, memoria controlable y herramientas con permisos.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/nexus-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/nexus-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
