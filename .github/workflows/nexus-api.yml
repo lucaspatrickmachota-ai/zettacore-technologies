@@ -1,0 +1,23 @@
+name: Nexus API checks
+
+on:
+  push:
+    paths:
+      - "nexus-api/**"
+      - ".github/workflows/nexus-api.yml"
+  pull_request:
+    paths:
+      - "nexus-api/**"
+      - ".github/workflows/nexus-api.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --check nexus-api/server.js
+      - run: node --check nexus-api/providers.js
+      - run: node --test nexus-api/providers.test.js
