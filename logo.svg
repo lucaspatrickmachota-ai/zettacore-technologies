@@ -1,24 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
-<title id="title">ZettaCore Technologies — Z emblem</title><desc id="desc">Geometric brushed-silver Z with a restrained monochrome silver finish, no blue accent and no halo.</desc>
+<title id="title">ZettaCore Technologies</title>
+<desc id="desc">Clean, upright metallic Z emblem with exactly three strokes and no extra diagonal bar.</desc>
 <defs>
- <linearGradient id="metal" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#f8fbff"/><stop offset=".25" stop-color="#aeb9c5"/><stop offset=".48" stop-color="#eef3f8"/><stop offset=".72" stop-color="#7f8b99"/><stop offset="1" stop-color="#dfe6ed"/></linearGradient>
- <linearGradient id="graphite" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dbe2e9"/><stop offset=".5" stop-color="#657382"/><stop offset="1" stop-color="#aeb9c5"/></linearGradient>
- <linearGradient id="side" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#293847"/><stop offset="1" stop-color="#070d15"/></linearGradient>
- <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dy="9"/><feComponentTransfer><feFuncA type="linear" slope=".5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#ffffff"/><stop offset=".28" stop-color="#c7d0da"/><stop offset=".5" stop-color="#f1f4f8"/><stop offset=".75" stop-color="#8794a3"/><stop offset="1" stop-color="#e3e9ef"/>
+ </linearGradient>
+ <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dbe4ee"/><stop offset="1" stop-color="#394655"/></linearGradient>
+ <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="5"/><feComponentTransfer><feFuncA type="linear" slope=".3"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 </defs>
 <g filter="url(#shadow)" stroke-linejoin="round">
- <path d="M76 86 H444 L403 166 H239 L441 345 L397 426 H68 L111 346 H273 L70 166 Z" fill="url(#side)" stroke="#263a4e" stroke-width="5"/>
- <path d="M66 72 H449 L408 151 H244 L445 337 L402 417 H58 L101 338 H267 L60 151 Z" fill="url(#metal)" stroke="#e5edf5" stroke-width="3"/>
- <path d="M87 94 H413 L385 130 H218 L412 310 L387 373 H95 L122 337 H303 L92 130 Z" fill="#111a25"/>
- <path d="M122 337 H303 L412 310 L387 373 H95 Z" fill="url(#metal)" opacity=".12"/>
- <path d="M102 148 H244 L427 319 L401 360 L188 160 H95 Z" fill="url(#blue)" opacity=".95"/>
- <path d="M104 151 H239 L419 319" fill="none" stroke="#8ce9ff" stroke-width="4" opacity=".95"/>
- <path d="M117 339 H285 L397 339 L387 358 H107 Z" fill="url(#metal)"/>
- <path d="M78 72 H449 L408 151 H244 L445 337 L402 417 H58 L101 338 H267 L60 151 H208 L246 187 H133 L145 207 L289 338 H385 L399 365 H93 L123 310 H231 L90 151 Z" fill="url(#metal)" opacity=".96"/>
- <path d="M78 72 H449 L408 151 H244 L445 337 L402 417 H58 L101 338 H267 L60 151 H208 L246 187 H133 L145 207 L289 338 H385 L399 365 H93 L123 310 H231 L90 151 Z" fill="none" stroke="#d9e3ed" stroke-width="2"/>
- <path d="M91 91 H414 L395 126 H226 L422 312 L391 397 H91 L118 349 H290 L102 169 H177 L359 337 H379 L398 317 L203 139 H374 L393 104 H91 Z" fill="#0b111a" opacity=".96"/>
- <path d="M95 100 H394 L375 127 H214 L407 314 L386 383 H90 L111 351 H291 L111 174 H166 L367 360 H377 L390 321 L191 139 H366 L382 112 H95 Z" fill="url(#metal)"/>
- <path d="M114 119 H359 L342 137 H206 L383 308 L369 352 H130 L151 329 H312 L146 163 H174 L354 337 H355 L367 309 L166 138 H351 L362 119 Z" fill="#0a111b"/>
- <path d="M148 153 H204 L383 320 L374 337 L179 155 Z" fill="url(#graphite)"/>
- <path d="M148 153 H204 L383 320" fill="none" stroke="#eef3f8" stroke-width="3" opacity=".8"/>
+ <path d="M72 82 H440 V164 L176 348 H440 V430 H72 V348 L336 164 H72 Z" fill="url(#silver)" stroke="url(#edge)" stroke-width="5"/>
+ <path d="M96 106 H392 V151 L149 324 H392 V405 H96 V361 L363 177 H96 Z" fill="#0a111b"/>
+ <path d="M113 123 H340 L123 333 H398 V388 H113 V371 L375 188 H113 Z" fill="url(#silver)"/>
 </g></svg>
