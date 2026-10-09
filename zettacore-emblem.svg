@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="t d">
-<title id="t">ZettaCore Z emblem</title><desc id="d">Upright, clearly readable angular metallic Z with electric-blue inset, transparent background.</desc>
-<defs><linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".23" stop-color="#b8c4d0"/><stop offset=".45" stop-color="#eef4fa"/><stop offset=".72" stop-color="#778696"/><stop offset="1" stop-color="#e6edf4"/></linearGradient><linearGradient id="blue" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#0876ff"/><stop offset=".55" stop-color="#26c5ff"/><stop offset="1" stop-color="#a4f0ff"/></linearGradient><filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dy="6"/><feComponentTransfer><feFuncA type="linear" slope=".38"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<title id="t">ZettaCore Z emblem</title><desc id="d">Upright, clearly readable angular metallic Z with a restrained monochrome silver finish, transparent background.</desc>
+<defs><linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".23" stop-color="#b8c4d0"/><stop offset=".45" stop-color="#eef4fa"/><stop offset=".72" stop-color="#778696"/><stop offset="1" stop-color="#e6edf4"/></linearGradient><linearGradient id="graphite" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dbe2e9"/><stop offset=".5" stop-color="#657382"/><stop offset="1" stop-color="#aeb9c5"/></linearGradient><filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dy="6"/><feComponentTransfer><feFuncA type="linear" slope=".38"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
 <g filter="url(#shadow)" stroke-linejoin="round">
 <path d="M64 72 H448 V146 L184 351 H448 V440 H54 V366 L318 161 H64 Z" fill="#08111d" stroke="#263d54" stroke-width="8"/>
 <path d="M64 64 H448 V132 L180 344 H448 V424 H54 V358 L322 144 H64 Z" fill="url(#metal)" stroke="#e8f0f8" stroke-width="3"/>
 <path d="M96 95 H384 V116 L135 314 H370 V383 H106 V366 L353 167 H96 Z" fill="#0a1420"/>
-<path d="M105 102 H220 L380 351 H337 Z" fill="url(#blue)"/>
-<path d="M105 102 H220 L380 351" fill="none" stroke="#b4f1ff" stroke-width="4"/>
+<path d="M105 102 H220 L380 351 H337 Z" fill="url(#graphite)"/>
+<path d="M105 102 H220 L380 351" fill="none" stroke="#eef3f8" stroke-width="3" opacity=".8"/>
 </g></svg>
