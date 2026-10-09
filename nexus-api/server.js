@@ -125,8 +125,8 @@ const server = http.createServer(async (req, res) => {
     const provider = selectedProvider();
     return send(res, 200, {
       product: "ZettaCore Nexus",
-      stage: provider.ready ? "model-configured" : "prototype",
-      aiConnected: provider.ready,
+      stage: provider.ready && chatEnabled ? "model-configured" : "prototype",
+      aiConnected: provider.ready && chatEnabled,
       provider: provider.provider,
       model: provider.model,
       accountsEnabled: false,
