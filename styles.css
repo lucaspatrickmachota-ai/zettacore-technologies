@@ -13,3 +13,7 @@
 .hero-logo{width:min(22vw,320px)}
 @media(max-width:980px){.hero-logo-wrap{width:48vw;right:-2vw}.hero-logo{width:min(28vw,300px)}.hero h1 .hero-title-top{font-size:.70em}}
 @media(max-width:640px){.hero-logo-wrap{width:72vw;right:-12vw}.hero-logo{width:min(42vw,230px)}.hero h1 .hero-title-top{font-size:.68em}}
+
+@media(max-width:1100px) and (min-width:641px){.hero-content{max-width:640px}.hero-logo-wrap{right:-2vw;width:36vw}.hero-logo{width:min(20vw,220px)}}
+.hero-logo-wrap{z-index:1}
+.hero-content{z-index:2}
