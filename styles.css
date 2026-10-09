@@ -55,3 +55,8 @@
 /* Hero cleanup: logo remains in the navigation; remove the oversized duplicate from the hero. */
 .hero:after{display:none}
 @media(max-width:640px){.hero{display:block;min-height:auto;padding:120px 6vw 50px}.hero-content{margin-top:0}.hero:after{display:none}}
+
+
+/* Corporate monochrome identity: silver/graphite, no electric-blue tint on the Z icon. */
+.brand-logo{filter:drop-shadow(0 1px 4px rgba(210,220,230,.16))!important}
+.footer-logo{filter:drop-shadow(0 1px 4px rgba(210,220,230,.12))!important}
