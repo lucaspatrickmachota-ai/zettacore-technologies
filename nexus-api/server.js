@@ -164,7 +164,8 @@ const server = http.createServer(async (req, res) => {
       if (!body || !Array.isArray(body.messages)) {
         return send(res, 400, { error: "invalid_messages" }, origin);
       }
-      const locale = typeof body.locale === "string" && /^[a-z]{2}$/.test(body.locale) ? body.locale : "en";\n      const result = await chat(body.messages, locale);
+      const locale = typeof body.locale === "string" && /^[a-z]{2}$/.test(body.locale) ? body.locale : "en";
+      const result = await chat(body.messages, locale);
       return send(res, 200, result, origin);
     } catch (error) {
       if (error.code === "invalid_messages") return send(res, 400, { error: "invalid_messages" }, origin);
