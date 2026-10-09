@@ -62,7 +62,7 @@ function normalizeMessages(messages) {
   });
 }
 
-async function geminiChat(messages) {
+async function geminiChat(messages, locale) {
   const key = requiredEnv("GEMINI_API_KEY");
   const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
   const contents = normalizeMessages(messages).map((m) => ({
@@ -75,8 +75,7 @@ async function geminiChat(messages) {
     method: "POST",
     headers: { "content-type": "application/json", "x-goog-api-key": key },
     body: JSON.stringify({
-      contents,
-      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS, temperature: 0.4 }
+      systemInstruction: { parts: [{ text: languageInstruction(locale) }] },\n      contents,\n      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS, temperature: 0.4 }
     })
   });
   const data = await readJson(response);
@@ -85,7 +84,7 @@ async function geminiChat(messages) {
   return { answer, provider: "gemini", model };
 }
 
-async function groqChat(messages) {
+async function groqChat(messages, locale) {
   const key = requiredEnv("GROQ_API_KEY");
   const model = requiredEnv("GROQ_MODEL");
   const response = await fetchWithTimeout("https://api.groq.com/openai/v1/chat/completions", {
@@ -93,7 +92,7 @@ async function groqChat(messages) {
     headers: { authorization: "Bearer " + key, "content-type": "application/json" },
     body: JSON.stringify({
       model,
-      messages: normalizeMessages(messages).map((m) => ({ role: m.role, content: m.content })),
+      messages: [{ role: "system", content: languageInstruction(locale) }, ...normalizeMessages(messages).map((m) => ({ role: m.role, content: m.content }))],
       max_tokens: MAX_OUTPUT_TOKENS,
       temperature: 0.4
     })
@@ -104,7 +103,7 @@ async function groqChat(messages) {
   return { answer, provider: "groq", model };
 }
 
-async function ollamaChat(messages) {
+async function ollamaChat(messages, locale) {
   const baseUrl = (process.env.OLLAMA_BASE_URL || "http://127.0.0.1:11434").replace(/\/$/, "");
   const model = requiredEnv("OLLAMA_MODEL");
   const response = await fetchWithTimeout(baseUrl + "/api/chat", {
@@ -112,7 +111,7 @@ async function ollamaChat(messages) {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
       model,
-      messages: normalizeMessages(messages).map((m) => ({ role: m.role, content: m.content })),
+      messages: [{ role: "system", content: languageInstruction(locale) }, ...normalizeMessages(messages).map((m) => ({ role: m.role, content: m.content }))],
       stream: false,
       options: { num_predict: MAX_OUTPUT_TOKENS, temperature: 0.4 }
     })
@@ -123,11 +122,29 @@ async function ollamaChat(messages) {
   return { answer, provider: "ollama", model };
 }
 
-async function chat(messages) {
+function languageInstruction(locale) {
+  const languages = {
+    es: "Responde en español salvo que el usuario pida otro idioma.",
+    en: "Respond in English unless the user asks for another language.",
+    pt: "Responda em português, salvo se o usuário pedir outro idioma.",
+    fr: "Répondez en français, sauf si l’utilisateur demande une autre langue.",
+    de: "Antworte auf Deutsch, sofern der Nutzer keine andere Sprache verlangt.",
+    it: "Rispondi in italiano, salvo richiesta di un'altra lingua.",
+    ja: "ユーザーが別の言語を希望しない限り、日本語で回答してください。",
+    zh: "除非用户要求其他语言，否则请用简体中文回答。",
+    ar: "أجب باللغة العربية ما لم يطلب المستخدم لغة أخرى.",
+    hi: "जब तक उपयोगकर्ता कोई दूसरी भाषा न मांगे, हिंदी में उत्तर दें。"
+  };
+  return "You are ZettaCore Nexus, a helpful AI assistant. " +
+    (languages[locale] || languages.en) +
+    " Be honest about uncertainty. Never claim a tool action was completed unless it actually was.";
+}
+
+async function chat(messages, locale) {
   const provider = (process.env.NEXUS_AI_PROVIDER || "").toLowerCase();
-  if (provider === "gemini") return geminiChat(messages);
-  if (provider === "groq") return groqChat(messages);
-  if (provider === "ollama") return ollamaChat(messages);
+  if (provider === "gemini") return geminiChat(messages, locale);
+  if (provider === "groq") return groqChat(messages, locale);
+  if (provider === "ollama") return ollamaChat(messages, locale);
   const error = new Error("No AI provider selected");
   error.code = "provider_not_configured";
   throw error;
