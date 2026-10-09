@@ -1,11 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="t d">
-<title id="t">ZettaCore Technologies</title><desc id="d">Upright, centered metallic Z with electric-blue accent and ZettaCore Technologies wordmark, transparent background.</desc>
-<defs><linearGradient id="s" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fff"/><stop offset=".22" stop-color="#b8c4d0"/><stop offset=".42" stop-color="#f4f7fb"/><stop offset=".7" stop-color="#7d8b9b"/><stop offset="1" stop-color="#e7edf4"/></linearGradient><linearGradient id="b" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#0876ff"/><stop offset=".55" stop-color="#26c5ff"/><stop offset="1" stop-color="#a4f0ff"/></linearGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur in="SourceAlpha" stdDeviation="7"/><feOffset dy="7"/><feComponentTransfer><feFuncA type="linear" slope=".35"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-<g transform="translate(255 12) scale(1.45)" filter="url(#sh)" stroke-linejoin="round">
-<path d="M75 92 H442 L408 164 H231 L431 345 L394 420 H65 L101 348 H273 L75 164 Z" fill="#09111d" stroke="#263d54" stroke-width="10"/>
-<path d="M65 78 H448 L407 157 H222 L420 338 L382 407 H54 L94 329 H266 L65 157 Z" fill="url(#s)" stroke="#e6edf5" stroke-width="4"/>
-<path d="M109 147 H207 L379 310 L364 337 L174 159 Z" fill="url(#b)"/><path d="M109 147 H207 L379 310" fill="none" stroke="#a4f0ff" stroke-width="4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img" aria-labelledby="t d">
+<title id="t">ZettaCore Technologies</title><desc id="d">Centered upright metallic Z emblem with electric-blue inset, above a crisp ZettaCore Technologies wordmark. Transparent background.</desc>
+<defs><linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".23" stop-color="#b8c4d0"/><stop offset=".45" stop-color="#eef4fa"/><stop offset=".72" stop-color="#778696"/><stop offset="1" stop-color="#e6edf4"/></linearGradient><linearGradient id="blue" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#0876ff"/><stop offset=".55" stop-color="#26c5ff"/><stop offset="1" stop-color="#a4f0ff"/></linearGradient><filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="5"/><feComponentTransfer><feFuncA type="linear" slope=".3"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<g transform="translate(350 25) scale(1.25)" filter="url(#shadow)" stroke-linejoin="round">
+<path d="M64 72 H448 V146 L184 351 H448 V440 H54 V366 L318 161 H64 Z" fill="#08111d" stroke="#263d54" stroke-width="8"/>
+<path d="M64 64 H448 V132 L180 344 H448 V424 H54 V358 L322 144 H64 Z" fill="url(#metal)" stroke="#e8f0f8" stroke-width="3"/>
+<path d="M105 102 H220 L380 351 H337 Z" fill="url(#blue)"/>
+<path d="M105 102 H220 L380 351" fill="none" stroke="#b4f1ff" stroke-width="4"/>
 </g>
-<text x="600" y="630" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="100" font-weight="700" letter-spacing="10" fill="url(#s)">ZETTACORE</text>
-<path d="M220 680 H430 M770 680 H980" stroke="url(#b)" stroke-width="4"/>
-<text x="600" y="695" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="14" fill="#b8d4e8">TECHNOLOGIES</text></svg>
+<text x="600" y="690" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="700" letter-spacing="8" fill="url(#metal)">ZETTACORE</text>
+<path d="M220 738 H420 M780 738 H980" stroke="url(#blue)" stroke-width="3"/>
+<text x="600" y="753" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" letter-spacing="13" fill="#b8d4e8">TECHNOLOGIES</text>
+</svg>
