@@ -126,7 +126,9 @@ const server = http.createServer(async (req, res) => {
     const chatEnabled = process.env.NEXUS_CHAT_ENABLED === "true";
     return send(res, 200, {
       product: "ZettaCore Nexus",
-      stage: provider.ready && chatEnabled ? "model-configured" : "prototype",
+      stage: provider.ready && chatEnabled ? "model-configured" : provider.ready ? "provider-configured-chat-disabled" : "prototype",
+      providerConfigured: provider.ready,
+      chatEnabled,
       aiConnected: provider.ready && chatEnabled,
       provider: provider.provider,
       model: provider.model,
@@ -135,7 +137,7 @@ const server = http.createServer(async (req, res) => {
       note: !provider.ready
         ? "AI provider is not configured. No prompts are sent to an AI provider."
         : !chatEnabled
-          ? "Provider credentials are present, but chat is disabled until explicitly enabled."
+          ? "Provider credentials are present, but chat is intentionally disabled for safety. No prompts are sent to the provider."
           : "Provider is configured. Prototype rate limits apply; authentication is not yet implemented."
     }, origin);
   }
