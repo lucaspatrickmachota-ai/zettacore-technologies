@@ -102,3 +102,9 @@
 .offer-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;min-height:26px}.offer-card-top .offer-kicker{margin-bottom:14px}.recommended-badge{flex-shrink:0;display:inline-flex;align-items:center;padding:5px 7px;border:1px solid rgba(94,216,255,.25);border-radius:5px;color:#b8dcec;background:rgba(17,92,130,.10);font-size:8px;line-height:1.2;letter-spacing:.08em;text-transform:uppercase}.offer-card.featured{border-color:var(--line);box-shadow:none}
 @media(max-width:980px){.trust-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.language-picker{margin-left:0}.language-picker select{max-width:126px;padding:8px 5px;font-size:10px}.concept-grid{grid-template-columns:1fr}.concept-preview{height:220px}.trust-strip{grid-template-columns:1fr;padding-bottom:65px}.trust-strip>div{padding:16px}.concept-content{padding:21px}.preview-flow{gap:6px}.flow-arrow{font-size:15px}.flow-node{min-height:76px}}
+
+/* Service detail and interactive portfolio entry points */
+.service-more{position:relative;z-index:1;font-size:11px;margin-top:16px;letter-spacing:.04em}
+.portfolio-actions{display:flex;justify-content:flex-start;flex-wrap:wrap;margin-top:24px}
+.portfolio-actions .button{white-space:normal;text-align:center}
+@media(max-width:640px){.portfolio-actions .button{width:100%}}
