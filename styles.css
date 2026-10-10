@@ -108,3 +108,9 @@
 .portfolio-actions{display:flex;justify-content:flex-start;flex-wrap:wrap;margin-top:24px}
 .portfolio-actions .button{white-space:normal;text-align:center}
 @media(max-width:640px){.portfolio-actions .button{width:100%}}
+
+/* Service detail and interactive portfolio entry points */
+.service-more{position:relative;z-index:1;font-size:11px;margin-top:16px;letter-spacing:.04em}
+.portfolio-actions{display:flex;justify-content:flex-start;flex-wrap:wrap;margin-top:24px}
+.portfolio-actions .button{white-space:normal;text-align:center}
+@media(max-width:640px){.portfolio-actions .button{width:100%}}
