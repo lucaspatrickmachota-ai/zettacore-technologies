@@ -1,0 +1,26 @@
+{
+  "note": "Synthetic, non-live test cases only. These cases are for regression checks, not a representative estimate of real-world accuracy.",
+  "legitimate": [
+    "https://www.wikipedia.org/",
+    "https://github.com/",
+    "https://docs.python.org/3/",
+    "https://www.microsoft.com/",
+    "https://login.microsoft.com/",
+    "https://accounts.google.com/",
+    "https://www.paypal.com/",
+    "https://www.amazon.es/",
+    "https://support.apple.com/",
+    "https://www.santander.es/",
+    "https://www.instagram.com/",
+    "https://www.netflix.com/"
+  ],
+  "synthetic_suspicious": [
+    "https://micros0ft-login.invalid/",
+    "https://paypal-security.invalid/",
+    "https://secure-amazon.invalid/",
+    "https://paypa1.invalid/",
+    "http://192.168.1.10/login",
+    "https://bit.ly/example",
+    "https://paypal.com@evil.invalid/"
+  ]
+}
