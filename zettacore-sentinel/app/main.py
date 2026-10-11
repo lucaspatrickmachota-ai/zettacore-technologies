@@ -9,7 +9,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, Field, field_validator
 from starlette.middleware.base import BaseHTTPMiddleware
 
-APP_VERSION = "0.2.0"
+from app.intel import lookup_urlhaus
+
+APP_VERSION = "0.3.0"
 CONTROL = re.compile(r"[\x00-\x20\x7f]")
 SCHEME = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.-]*:")
 HOST_LABEL = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
@@ -34,7 +36,7 @@ CONFUSABLE_TRANSLATION = str.maketrans({"0": "o", "3": "e", "5": "s", "7": "t", 
 app = FastAPI(
     title="ZettaCore Sentinel API",
     version=APP_VERSION,
-    description="Privacy-minded heuristic URL triage. No URL fetching or external reputation lookups are performed.",
+    description="Privacy-minded URL triage with local heuristics and optional consent-gated URLhaus lookup.",
     docs_url="/api/docs",
     redoc_url=None,
 )
@@ -65,6 +67,7 @@ app.add_middleware(RequestHardeningMiddleware)
 
 class AnalyzeRequest(BaseModel):
     url: str = Field(min_length=4, max_length=2048)
+    external_lookup_consent: bool = False
 
     @field_validator("url")
     @classmethod
@@ -134,6 +137,15 @@ def normalize_url(raw: str) -> str:
     default_port = (scheme == "http" and port == 80) or (scheme == "https" and port == 443)
     authority = authority_host if port is None or default_port else f"{authority_host}:{port}"
     return urlunsplit((scheme, authority, "/", "", ""))
+
+
+def _external_query_url(raw: str) -> str:
+    """Canonical URL for an explicitly consented provider lookup; strips userinfo and fragments."""
+    _, parsed, scheme, host, port, _, ip_version = _parse_url(raw)
+    authority_host = "[" + host + "]" if ip_version == 6 else host
+    default_port = (scheme == "http" and port == 80) or (scheme == "https" and port == 443)
+    authority = authority_host if port is None or default_port else f"{authority_host}:{port}"
+    return urlunsplit((scheme, authority, parsed.path or "/", parsed.query, ""))
 
 
 def _distance_one_or_less(left: str, right: str) -> bool:
@@ -253,6 +265,7 @@ def analyze(raw: str) -> dict:
         "findings_count": len(findings),
         "advice": advice,
         "external_reputation_checked": False,
+        "external_intelligence": {"provider": "URLhaus", "status": "not_requested", "checked": False, "summary": "No se ha solicitado una consulta externa."},
         "target_fetched": False,
         "limitations": [
             "No se ha visitado el enlace ni seguido redirecciones.",
@@ -270,9 +283,42 @@ def health():
 
 
 @app.post("/api/analyze")
-def analyze_url(payload: AnalyzeRequest):
+async def analyze_url(payload: AnalyzeRequest):
     try:
-        return analyze(payload.url)
+        result = analyze(payload.url)
+        if not payload.external_lookup_consent:
+            return result
+
+        if any(item["id"] == "userinfo" for item in result["findings"]):
+            intel = {
+                "provider": "URLhaus",
+                "status": "skipped_sensitive_url",
+                "checked": False,
+                "summary": "La URL contiene información antes del dominio; no se ha compartido con la fuente externa.",
+            }
+        else:
+            intel = await lookup_urlhaus(_external_query_url(payload.url))
+
+        result["external_intelligence"] = intel
+        result["external_reputation_checked"] = bool(intel.get("checked"))
+        if intel.get("status") == "listed":
+            result["findings"].append({
+                "id": "external_urlhaus_match",
+                "severity": "high",
+                "points": 45,
+                "title": "Coincidencia en URLhaus",
+                "detail": "La fuente externa relaciona esta URL con distribución de malware. El registro puede estar inactivo o desactualizado; no prueba que el destino esté activo ahora.",
+                "evidence": "URLhaus; estado del registro: " + str(intel.get("url_status", "desconocido")),
+            })
+            result["findings_count"] = len(result["findings"])
+            result["indicator_score"] = min(100, max(result["indicator_score"] + 45, 80))
+            result["risk"] = "high"
+            result["risk_label"] = "Coincidencia en inteligencia externa"
+            result["advice"] = "No descargues archivos ni introduzcas datos en este enlace. URLhaus tiene una entrada asociada a distribución de malware; confirma cualquier alerta mediante canales de confianza."
+            result["analysis_mode"] = "heuristics_plus_external_lookup"
+        elif intel.get("status") == "no_match":
+            result["analysis_mode"] = "heuristics_plus_external_lookup"
+        return result
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
