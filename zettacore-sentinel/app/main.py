@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import ipaddress
 import re
+import time
+from collections import defaultdict, deque
 from urllib.parse import urlsplit, urlunsplit
 
 from fastapi import FastAPI, HTTPException, Request
@@ -63,6 +65,70 @@ class RequestHardeningMiddleware(BaseHTTPMiddleware):
         return response
 
 
+class AnalyzeRateLimitMiddleware(BaseHTTPMiddleware):
+    """Best-effort per-process abuse guard; use a shared limiter for multi-instance production."""
+
+    WINDOW_SECONDS = 60
+    MAX_ANALYSES_PER_WINDOW = 30
+    MAX_EXTERNAL_LOOKUPS_PER_WINDOW = 5
+
+    def __init__(self, app):
+        super().__init__(app)
+        self.events = defaultdict(deque)
+
+    async def dispatch(self, request: Request, call_next):
+        if request.method != "POST" or request.url.path != "/api/analyze":
+            return await call_next(request)
+
+        client_host = request.client.host if request.client else "unknown"
+        now = time.monotonic()
+        bucket = self.events[client_host]
+        while bucket and now - bucket[0][0] >= self.WINDOW_SECONDS:
+            bucket.popleft()
+
+        external_requested = False
+        try:
+            body = await request.body()
+            if len(body) <= 12288:
+                import json
+                payload = json.loads(body or b"{}")
+                external_requested = payload.get("external_lookup_consent") is True
+            # Reconstruct receive after reading so downstream parsing sees the body.
+            sent = False
+            async def receive():
+                nonlocal sent
+                if not sent:
+                    sent = True
+                    return {"type": "http.request", "body": body, "more_body": False}
+                return {"type": "http.disconnect"}
+            request = Request(request.scope, receive)
+        except (ValueError, TypeError):
+            # Let FastAPI produce its normal validation response for malformed JSON.
+            pass
+
+        external_count = sum(1 for _, is_external in bucket if is_external)
+        if len(bucket) >= self.MAX_ANALYSES_PER_WINDOW or (
+            external_requested and external_count >= self.MAX_EXTERNAL_LOOKUPS_PER_WINDOW
+        ):
+            return JSONResponse(
+                {"detail": "Límite temporal alcanzado. Espera un minuto antes de volver a intentarlo."},
+                status_code=429,
+                headers={"Retry-After": "60", "Cache-Control": "no-store"},
+            )
+
+        bucket.append((now, external_requested))
+        # Bound memory if a large number of distinct client addresses appears.
+        if len(self.events) > 5000:
+            for key in list(self.events.keys())[:1000]:
+                events = self.events[key]
+                while events and now - events[0][0] >= self.WINDOW_SECONDS:
+                    events.popleft()
+                if not events:
+                    self.events.pop(key, None)
+        return await call_next(request)
+
+
+app.add_middleware(AnalyzeRateLimitMiddleware)
 app.add_middleware(RequestHardeningMiddleware)
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
