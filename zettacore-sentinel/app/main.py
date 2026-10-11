@@ -202,10 +202,13 @@ def analyze(raw: str) -> dict:
             continue
         normalized_labels = set()
         for label in labels:
-            normalized_labels.add(label)
-            normalized_labels.add(label.translate(CONFUSABLE_TRANSLATION))
-            normalized_labels.add(label.replace("1", "i"))
-            normalized_labels.add(label.replace("1", "l"))
+            candidates = {label, label.translate(CONFUSABLE_TRANSLATION), label.replace("1", "i"), label.replace("1", "l")}
+            for token in label.split("-"):
+                candidates.add(token)
+                candidates.add(token.translate(CONFUSABLE_TRANSLATION))
+                candidates.add(token.replace("1", "i"))
+                candidates.add(token.replace("1", "l"))
+            normalized_labels.update(candidates)
         if any(brand in label.replace("-", "") for label in labels):
             add(f"brand_impersonation_{brand}", 25, "high", "El dominio menciona una marca fuera de dominios conocidos", f"El host incluye “{brand}”, pero no termina en uno de los dominios de referencia configurados. Es una señal de comprobación, no prueba definitiva de fraude.", f"Marca: {brand}; host: {host}")
         elif any(_distance_one_or_less(candidate, brand) for candidate in normalized_labels if len(candidate) >= 5 and len(brand) >= 5):
