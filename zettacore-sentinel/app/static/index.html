@@ -1,10 +1,27 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080d18"><meta name="description" content="ZettaCore Sentinel analiza señales de riesgo en enlaces sin visitar el destino."><title>ZettaCore Sentinel — Link Intelligence</title>
-<link rel="stylesheet" href="/static/style.css"></head><body><main>
-<header class="top"><div class="mark" aria-hidden="true">Z</div><div><div class="brand">ZETTACORE <span class="blue">SENTINEL</span></div><div class="sub">LINK INTELLIGENCE</div></div><div class="pill">MVP · 0.3.0</div></header>
-<section class="hero"><div class="eyebrow">Understand the signals. Verify the source.</div><h1>Think before<br><span>you click.</span></h1><p>Analiza señales de riesgo y recibe explicaciones comprensibles. Sentinel no visita el enlace ni envía el destino a servicios externos en esta versión.</p></section>
-<section class="panel"><form id="form"><label for="url">Pega la URL recibida por SMS, WhatsApp, correo o web</label><div class="inputrow"><input id="url" type="text" placeholder="https://ejemplo.com/verificar-cuenta" autocomplete="url" maxlength="2048" required><button id="submit">Analizar enlace ↗</button></div><p class="hint">Análisis local por defecto · El destino nunca se visita.</p><label class="consent" for="externalConsent"><input id="externalConsent" type="checkbox"><span>Consulta externa opcional con URLhaus. Si está configurada en el servidor con clave y licencia adecuadas, se compartirá la URL completa —incluida la ruta y los parámetros— con ese proveedor. No se activa por defecto.</span></label><div id="error" class="error hidden" role="alert"></div></form></section>
-<div class="grid"><div class="mini"><b>01 · Privacidad</b><p>La API devuelve host y origen, no la ruta ni parámetros de la URL.</p></div><div class="mini"><b>02 · Explicable</b><p>Cada indicador incluye el motivo y la evidencia observada.</p></div><div class="mini"><b>03 · Sin falsas garantías</b><p>Un enlace sin alertas sigue sin estar verificado.</p></div></div>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111820">
+<meta name="description" content="ZettaCore Sentinel identifica señales técnicas de riesgo en enlaces y explica los resultados.">
+<title>ZettaCore Sentinel | Link Security</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+<a class="identity" href="/" aria-label="ZettaCore Sentinel"><span class="mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M6 9H30L6 27H30"/></svg></span><span><strong>ZETTACORE <b>SENTINEL</b></strong><small data-i18n="productLine">ANÁLISIS DE ENLACES</small></span></a>
+<div class="tools"><span class="status"><i></i><span data-i18n="localMode">Análisis local</span></span><label class="language"><span class="sr-only" data-i18n="language">Idioma</span><select id="language" aria-label="Idioma"><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="en">English</option></select></label></div>
+</header>
+<main>
+<section class="intro"><p class="eyebrow" data-i18n="eyebrow">SEGURIDAD DIGITAL / ANÁLISIS DE ENLACES</p><h1 data-i18n="headline">Comprueba el enlace<br>antes de <em>abrirlo.</em></h1><p class="lede" data-i18n="intro">Revisa señales técnicas de riesgo con explicaciones claras. Sentinel no visita la web de destino durante el análisis.</p></section>
+<section class="workspace">
+<div class="panel-head"><div><span class="step" data-i18n="step">ANÁLISIS</span><h2 data-i18n="analyzeTitle">Analizar un enlace</h2></div><span class="number">01</span></div>
+<form id="form"><label for="url" data-i18n="urlLabel">Pega aquí el enlace recibido por SMS, WhatsApp, correo o web</label><div class="urlrow"><input id="url" type="text" maxlength="2048" autocomplete="url" placeholder="https://ejemplo.com/cuenta" required><button id="submit" type="submit"><span data-i18n="analyzeButton">Analizar enlace</span><span aria-hidden="true">↗</span></button></div>
+<div class="formmeta"><span data-i18n="privacyNote">La comprobación local no abre el destino ni envía el enlace a terceros.</span><span data-i18n="noGuarantee">Sin garantía de seguridad</span></div>
+<details class="advanced"><summary data-i18n="advanced">Opciones avanzadas</summary><label class="consent" for="externalConsent"><input id="externalConsent" type="checkbox"><span data-i18n="externalConsent">Solicitar consulta opcional a URLhaus. Si está habilitada en el servidor, se compartirá con ese proveedor la URL completa, incluida la ruta y los parámetros.</span></label></details><div id="error" class="error hidden" role="alert"></div></form>
+</section>
+<section class="principles"><article><span>01</span><div><h3 data-i18n="p1title">Privacidad por defecto</h3><p data-i18n="p1">El análisis local no visita el destino ni envía la URL a terceros.</p></div></article><article><span>02</span><div><h3 data-i18n="p2title">Resultados explicables</h3><p data-i18n="p2">Cada señal incluye el motivo y la evidencia observada.</p></div></article><article><span>03</span><div><h3 data-i18n="p3title">Sin falsas certezas</h3><p data-i18n="p3">No detectar señales no significa que el enlace sea seguro.</p></div></article></section>
 <section id="results" class="results hidden" aria-live="polite"></section>
-<footer class="footer">Versión experimental. Los indicadores heurísticos pueden producir falsos positivos y negativos. No es un certificado de seguridad y no sustituye la verificación independiente del remitente o del dominio oficial.</footer></main>
-<script src="/static/app.js" defer></script></body></html>
+<footer><strong>ZETTACORE <b>SENTINEL</b></strong><p data-i18n="disclaimer">Herramienta experimental de evaluación inicial. Puede producir falsos positivos y negativos. No es una certificación de seguridad. Confirma el remitente y el dominio por un canal independiente.</p><span>© ZettaCore Technologies</span></footer>
+</main><script src="/static/app.js" defer></script>
+</body></html>
