@@ -85,7 +85,7 @@ def test_api_returns_validation_error_for_bad_scheme():
 def test_health_endpoint():
     response = client.get("/api/health")
     assert response.status_code == 200
-    assert response.json()["version"] == "0.3.0"
+    assert response.json()["version"] == "0.3.1"
 
 
 
@@ -182,3 +182,13 @@ def test_api_analysis_rate_limit_returns_429_and_retry_after():
     limited = [response for response in responses if response.status_code == 429]
     assert limited, "Expected the per-client request limit to activate"
     assert limited[0].headers["retry-after"] == "60"
+
+
+def test_short_brand_name_does_not_match_inside_unrelated_word():
+    for url in ("https://pineapple.com/", "https://snapple.example/", "https://applepie.example/"):
+        assert not any(item["id"].startswith("brand_") for item in analyze(url)["findings"])
+
+
+def test_short_brand_name_matches_hyphen_separated_word():
+    for url in ("https://apple-support.example/", "https://id-apple.example/"):
+        assert any(item["id"] == "brand_impersonation_apple" for item in analyze(url)["findings"])
