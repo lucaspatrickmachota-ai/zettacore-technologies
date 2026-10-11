@@ -1,7 +1,12 @@
+import json
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 
 from app.main import analyze, app, normalize_url
+
+CASES = json.loads((Path(__file__).parent / "fixtures" / "url_cases.json").read_text(encoding="utf-8"))
 
 client = TestClient(app)
 
@@ -141,3 +146,28 @@ def test_urlhaus_adapter_is_gated_by_server_configuration(monkeypatch):
     }).json()
     assert result["external_intelligence"]["status"] == "not_configured"
     assert result["external_reputation_checked"] is False
+
+
+
+def test_benchmark_legitimate_domains_have_no_brand_alerts():
+    false_positives = []
+    for url in CASES["legitimate"]:
+        result = analyze(url)
+        alerts = [f["id"] for f in result["findings"] if f["id"].startswith("brand_")]
+        if alerts:
+            false_positives.append({"url": url, "alerts": alerts})
+    assert false_positives == [], f"Potential brand-rule false positives: {false_positives}"
+
+
+def test_benchmark_synthetic_suspicious_cases_trigger_indicators():
+    misses = []
+    for url in CASES["synthetic_suspicious"]:
+        if not analyze(url)["findings"]:
+            misses.append(url)
+    assert misses == [], f"Synthetic cases with no indicators: {misses}"
+
+
+def test_benchmark_corpus_is_explicitly_synthetic():
+    assert "Synthetic" in CASES["note"]
+    assert len(CASES["legitimate"]) >= 10
+    assert len(CASES["synthetic_suspicious"]) >= 5
