@@ -67,6 +67,9 @@ def test_api_emits_security_headers():
     assert response.headers["x-frame-options"] == "DENY"
     assert response.headers["referrer-policy"] == "no-referrer"
     assert response.headers["cache-control"] == "no-store"
+    assert "'unsafe-inline'" not in response.headers["content-security-policy"]
+    assert client.get("/static/app.js").status_code == 200
+    assert client.get("/static/style.css").status_code == 200
 
 
 def test_api_returns_validation_error_for_bad_scheme():
@@ -125,3 +128,16 @@ def test_external_lookup_skips_urls_with_userinfo(monkeypatch):
     assert response.status_code == 200
     assert data["external_intelligence"]["status"] == "skipped_sensitive_url"
     assert "secret" not in response.text
+
+
+
+def test_urlhaus_adapter_is_gated_by_server_configuration(monkeypatch):
+    from app.intel import lookup_urlhaus
+
+    monkeypatch.delenv("URLHAUS_AUTH_KEY", raising=False)
+    result = client.post("/api/analyze", json={
+        "url": "https://example.com/path",
+        "external_lookup_consent": True,
+    }).json()
+    assert result["external_intelligence"]["status"] == "not_configured"
+    assert result["external_reputation_checked"] is False
