@@ -171,3 +171,14 @@ def test_benchmark_corpus_is_explicitly_synthetic():
     assert "Synthetic" in CASES["note"]
     assert len(CASES["legitimate"]) >= 10
     assert len(CASES["synthetic_suspicious"]) >= 5
+
+
+
+def test_api_analysis_rate_limit_returns_429_and_retry_after():
+    responses = [
+        client.post("/api/analyze", json={"url": "https://example.org/"})
+        for _ in range(35)
+    ]
+    limited = [response for response in responses if response.status_code == 429]
+    assert limited, "Expected the per-client request limit to activate"
+    assert limited[0].headers["retry-after"] == "60"
