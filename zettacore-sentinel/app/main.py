@@ -2,8 +2,7 @@ from __future__ import annotations
 
 import ipaddress
 import re
-import time
-from collections import defaultdict, deque
+from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
 from fastapi import FastAPI, HTTPException, Request
@@ -13,8 +12,13 @@ from pydantic import BaseModel, Field, field_validator
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.intel import lookup_urlhaus
+from app.security import BodySizeLimitMiddleware, SlidingWindowLimiter, client_ip, trusted_proxy_hops
 
-APP_VERSION = "0.3.0"
+APP_VERSION = "0.3.1"
+BASE_DIR = Path(__file__).resolve().parent
+STATIC_DIR = BASE_DIR / "static"
+MAX_BODY_BYTES = 12288
+SHORT_BRAND_MAX = 5
 CONTROL = re.compile(r"[\x00-\x20\x7f]")
 SCHEME = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.-]*:")
 HOST_LABEL = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
@@ -47,12 +51,6 @@ app = FastAPI(
 
 class RequestHardeningMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
-        try:
-            content_length = int(request.headers.get("content-length", "0"))
-        except ValueError:
-            return JSONResponse({"detail": "Cabecera Content-Length no válida."}, status_code=400)
-        if content_length > 12288:
-            return JSONResponse({"detail": "La petición supera el tamaño máximo permitido."}, status_code=413)
         response = await call_next(request)
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
@@ -65,72 +63,13 @@ class RequestHardeningMiddleware(BaseHTTPMiddleware):
         return response
 
 
-class AnalyzeRateLimitMiddleware(BaseHTTPMiddleware):
-    """Best-effort per-process abuse guard; use a shared limiter for multi-instance production."""
+# Best-effort per-process limiter. Keep the default proxy trust at zero until the
+# deployment's forwarding chain is independently verified. Production needs shared storage.
+limiter = SlidingWindowLimiter(window_seconds=60, max_requests=30, max_external=5)
 
-    WINDOW_SECONDS = 60
-    MAX_ANALYSES_PER_WINDOW = 30
-    MAX_EXTERNAL_LOOKUPS_PER_WINDOW = 5
-
-    def __init__(self, app):
-        super().__init__(app)
-        self.events = defaultdict(deque)
-
-    async def dispatch(self, request: Request, call_next):
-        if request.method != "POST" or request.url.path != "/api/analyze":
-            return await call_next(request)
-
-        client_host = request.client.host if request.client else "unknown"
-        now = time.monotonic()
-        bucket = self.events[client_host]
-        while bucket and now - bucket[0][0] >= self.WINDOW_SECONDS:
-            bucket.popleft()
-
-        external_requested = False
-        try:
-            body = await request.body()
-            if len(body) <= 12288:
-                import json
-                payload = json.loads(body or b"{}")
-                external_requested = payload.get("external_lookup_consent") is True
-            # Reconstruct receive after reading so downstream parsing sees the body.
-            sent = False
-            async def receive():
-                nonlocal sent
-                if not sent:
-                    sent = True
-                    return {"type": "http.request", "body": body, "more_body": False}
-                return {"type": "http.disconnect"}
-            request = Request(request.scope, receive)
-        except (ValueError, TypeError):
-            # Let FastAPI produce its normal validation response for malformed JSON.
-            pass
-
-        external_count = sum(1 for _, is_external in bucket if is_external)
-        if len(bucket) >= self.MAX_ANALYSES_PER_WINDOW or (
-            external_requested and external_count >= self.MAX_EXTERNAL_LOOKUPS_PER_WINDOW
-        ):
-            return JSONResponse(
-                {"detail": "Límite temporal alcanzado. Espera un minuto antes de volver a intentarlo."},
-                status_code=429,
-                headers={"Retry-After": "60", "Cache-Control": "no-store"},
-            )
-
-        bucket.append((now, external_requested))
-        # Bound memory if a large number of distinct client addresses appears.
-        if len(self.events) > 5000:
-            for key in list(self.events.keys())[:1000]:
-                events = self.events[key]
-                while events and now - events[0][0] >= self.WINDOW_SECONDS:
-                    events.popleft()
-                if not events:
-                    self.events.pop(key, None)
-        return await call_next(request)
-
-
-app.add_middleware(AnalyzeRateLimitMiddleware)
+app.add_middleware(BodySizeLimitMiddleware, max_bytes=MAX_BODY_BYTES)
 app.add_middleware(RequestHardeningMiddleware)
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
 class AnalyzeRequest(BaseModel):
@@ -246,6 +185,17 @@ def _is_domain_or_subdomain(host: str, domain: str) -> bool:
     return host == domain or host.endswith("." + domain)
 
 
+def _mentions_brand(labels: list[str], brand: str) -> bool:
+    """Avoid matching short brand names inside unrelated words like 'pineapple'."""
+    for label in labels:
+        if len(brand) > SHORT_BRAND_MAX:
+            if brand in label.replace("-", ""):
+                return True
+        elif brand in label.split("-"):
+            return True
+    return False
+
+
 def analyze(raw: str) -> dict:
     value, parsed, scheme, host, port, ip_obj, ip_version = _parse_url(raw)
     score, findings, seen_ids = 0, [], set()
@@ -289,9 +239,9 @@ def analyze(raw: str) -> dict:
                 candidates.add(token.replace("1", "i"))
                 candidates.add(token.replace("1", "l"))
             normalized_labels.update(candidates)
-        if any(brand in label.replace("-", "") for label in labels):
+        if _mentions_brand(labels, brand):
             add(f"brand_impersonation_{brand}", 25, "high", "El dominio menciona una marca fuera de dominios conocidos", f"El host incluye “{brand}”, pero no termina en uno de los dominios de referencia configurados. Es una señal de comprobación, no prueba definitiva de fraude.", f"Marca: {brand}; host: {host}")
-        elif any(_distance_one_or_less(candidate, brand) for candidate in normalized_labels if len(candidate) >= 5 and len(brand) >= 5):
+        elif len(brand) > SHORT_BRAND_MAX and any(_distance_one_or_less(candidate, brand) for candidate in normalized_labels if len(candidate) >= 5):
             add(f"brand_typo_{brand}", 22, "high", "Posible variante tipográfica de una marca", f"Una etiqueta del dominio es visual o tipográficamente parecida a “{brand}”. Comprueba el dominio oficial de forma independiente.", f"Marca comparada: {brand}; host: {host}")
 
     if len(labels) >= 5:
@@ -351,7 +301,14 @@ def health():
 
 
 @app.post("/api/analyze")
-async def analyze_url(payload: AnalyzeRequest):
+async def analyze_url(payload: AnalyzeRequest, request: Request):
+    client = client_ip(request.scope, trusted_proxy_hops())
+    if not limiter.allow(client, external=payload.external_lookup_consent):
+        raise HTTPException(
+            status_code=429,
+            detail="Límite temporal alcanzado. Espera un minuto antes de volver a intentarlo.",
+            headers={"Retry-After": "60"},
+        )
     try:
         result = analyze(payload.url)
         if not payload.external_lookup_consent:
@@ -401,5 +358,4 @@ async def analyze_url(payload: AnalyzeRequest):
 
 @app.get("/", response_class=HTMLResponse)
 def home():
-    with open("app/static/index.html", encoding="utf-8") as file:
-        return file.read()
+    return (STATIC_DIR / "index.html").read_text(encoding="utf-8")

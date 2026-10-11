@@ -28,4 +28,4 @@ jobs:
       - name: Run regression and security tests
         run: pytest -q
       - name: Report synthetic benchmark metrics
-        run: python scripts/benchmark_detector.py
+        run: PYTHONPATH=. python scripts/benchmark_detector.py
