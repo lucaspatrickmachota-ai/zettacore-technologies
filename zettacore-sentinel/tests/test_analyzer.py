@@ -77,4 +77,51 @@ def test_api_returns_validation_error_for_bad_scheme():
 def test_health_endpoint():
     response = client.get("/api/health")
     assert response.status_code == 200
-    assert response.json()["version"] == "0.2.0"
+    assert response.json()["version"] == "0.3.0"
+
+
+
+def test_external_lookup_is_not_requested_without_explicit_consent():
+    response = client.post("/api/analyze", json={"url": "https://example.com/path?token=SECRET"})
+    data = response.json()
+    assert data["external_intelligence"]["status"] == "not_requested"
+    assert data["external_reputation_checked"] is False
+    assert "SECRET" not in response.text
+
+
+def test_external_match_is_explained_without_echoing_full_url(monkeypatch):
+    async def fake_lookup(url):
+        assert url == "https://example.com/path?token=SECRET"
+        return {
+            "provider": "URLhaus",
+            "status": "listed",
+            "checked": True,
+            "summary": "Matched listing",
+            "url_status": "online",
+        }
+
+    monkeypatch.setattr("app.main.lookup_urlhaus", fake_lookup)
+    response = client.post("/api/analyze", json={
+        "url": "https://example.com/path?token=SECRET",
+        "external_lookup_consent": True,
+    })
+    data = response.json()
+    assert response.status_code == 200
+    assert data["risk"] == "high"
+    assert any(item["id"] == "external_urlhaus_match" for item in data["findings"])
+    assert "SECRET" not in response.text
+
+
+def test_external_lookup_skips_urls_with_userinfo(monkeypatch):
+    async def should_not_run(_url):
+        raise AssertionError("Sensitive URL must not be shared externally")
+
+    monkeypatch.setattr("app.main.lookup_urlhaus", should_not_run)
+    response = client.post("/api/analyze", json={
+        "url": "https://user:secret@example.com/private",
+        "external_lookup_consent": True,
+    })
+    data = response.json()
+    assert response.status_code == 200
+    assert data["external_intelligence"]["status"] == "skipped_sensitive_url"
+    assert "secret" not in response.text
