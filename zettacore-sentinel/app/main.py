@@ -303,6 +303,14 @@ async def analyze_url(payload: AnalyzeRequest):
 
         result["external_intelligence"] = intel
         result["external_reputation_checked"] = bool(intel.get("checked"))
+        if result["external_reputation_checked"]:
+            result["limitations"] = [
+                item for item in result["limitations"]
+                if item != "No se han consultado listas de bloqueo ni reputación externa."
+            ]
+            result["limitations"].append(
+                "La fuente URLhaus cubre indicadores relacionados con malware; no detecta todas las formas de phishing."
+            )
         if intel.get("status") == "listed":
             result["findings"].append({
                 "id": "external_urlhaus_match",
