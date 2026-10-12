@@ -1,4 +1,4 @@
-"Initial PySide6 desktop shell for ZettaCore Vanguard."""
+"""Initial PySide6 desktop shell for ZettaCore Vanguard."""
 
 from __future__ import annotations
 
