@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from PySide6.QtCore import Qt, QThread, Signal
@@ -75,7 +75,7 @@ class IntelligenceWorker(QThread):
             self.succeeded.emit(enrich_with_kev(records, catalog))
         except (ValueError, IntelligenceSourceError) as error:
             self.failed.emit(str(error))
-        except Exception as error:  # Convert unexpected network/decoder failures into UI feedback.
+        except Exception as error:  # noqa: BLE001 - surface unexpected lookup failures in the UI.
             self.failed.emit(f"Lookup failed safely: {error}")
 
 
@@ -285,7 +285,7 @@ class VanguardWindow(QMainWindow):
             self.intel_status.setText("The source returned an unexpected response; nothing was saved.")
             return
         count = self.vulnerability_store.upsert_records(records)
-        now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        now = datetime.now(UTC).isoformat(timespec="seconds")
         self.vulnerability_store.record_sync(
             "NIST NVD + CISA KEV", now, now, "success", count, "Single-CVE lookup"
         )
