@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "ZettaCore Vanguard",
+  "short_name": "Vanguard",
+  "description": "Intelligence. Security. Resilience.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080d14",
+  "theme_color": "#080d14",
+  "icons": [
+    {
+      "src": "./assets/vanguard-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
