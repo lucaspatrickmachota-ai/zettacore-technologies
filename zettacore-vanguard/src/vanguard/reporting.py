@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -67,7 +67,7 @@ def generate_vulnerability_report(
     styles.add(ParagraphStyle(name="VanguardBody", parent=styles["BodyText"], fontSize=8, leading=11, spaceAfter=4, wordWrap="CJK"))
     styles.add(ParagraphStyle(name="VanguardSmall", parent=styles["BodyText"], fontSize=7, leading=9, wordWrap="CJK"))
     story = [Paragraph(title or t["title"], styles["VanguardTitle"]), Paragraph(t["subtitle"], styles["VanguardBody"]), Spacer(1, 3 * mm)]
-    story.append(Paragraph(f"<b>{t['generated']}:</b> {datetime.now(timezone.utc).isoformat(timespec='seconds')} &nbsp;&nbsp; <b>{t['count']}:</b> {len(records)}", styles["VanguardBody"]))
+    story.append(Paragraph(f"<b>{t['generated']}:</b> {datetime.now(UTC).isoformat(timespec='seconds')} &nbsp;&nbsp; <b>{t['count']}:</b> {len(records)}", styles["VanguardBody"]))
     story.append(Spacer(1, 4 * mm))
     if not records:
         story.append(Paragraph(t["empty"], styles["VanguardBody"]))
