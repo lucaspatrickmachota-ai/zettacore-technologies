@@ -95,8 +95,12 @@ class VanguardWindow(QMainWindow):
         refresh_button = QPushButton("Refresh")
         refresh_button.clicked.connect(self.refresh_assets)
         refresh_button.setStyleSheet("background: #26384d;")
+        delete_button = QPushButton("Delete selected")
+        delete_button.clicked.connect(self.delete_selected_asset)
+        delete_button.setStyleSheet("background: #7f2932;")
         buttons.addWidget(add_button)
         buttons.addWidget(refresh_button)
+        buttons.addWidget(delete_button)
         buttons.addStretch(1)
         layout.addLayout(buttons)
 
@@ -134,6 +138,26 @@ class VanguardWindow(QMainWindow):
         self.owner_input.clear()
         self.authorization_input.clear()
         self.refresh_assets()
+
+    def delete_selected_asset(self) -> None:
+        row = self.table.currentRow()
+        if row < 0:
+            QMessageBox.information(self, "Select an asset", "Choose an asset in the table first.")
+            return
+        item = self.table.item(row, 0)
+        if item is None:
+            return
+        asset_id = int(item.text())
+        answer = QMessageBox.question(
+            self,
+            "Delete asset",
+            "Delete the selected asset from this computer?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No,
+        )
+        if answer == QMessageBox.StandardButton.Yes:
+            self.store.delete_asset(asset_id)
+            self.refresh_assets()
 
     def refresh_assets(self) -> None:
         assets = self.store.list_assets()
