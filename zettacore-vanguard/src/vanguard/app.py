@@ -1,4 +1,4 @@
-"""Initial PySide6 desktop shell for ZettaCore Vanguard."""
+"Initial PySide6 desktop shell for ZettaCore Vanguard."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ import sys
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,
+    QComboBox,
     QFormLayout,
     QHBoxLayout,
     QHeaderView,
@@ -15,7 +16,6 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QMessageBox,
     QPushButton,
-    QComboBox,
     QTableWidget,
     QTableWidgetItem,
     QVBoxLayout,
