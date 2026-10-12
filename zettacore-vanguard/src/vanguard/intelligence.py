@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -41,7 +41,7 @@ class VulnerabilityRecord:
 
 
 def _utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+    return datetime.now(UTC).isoformat(timespec="seconds")
 
 
 def _parse_iso(value: object) -> str | None:
@@ -154,7 +154,8 @@ def fetch_json(url: str, *, timeout: int = DEFAULT_TIMEOUT_SECONDS) -> object:
 def fetch_cve(cve_id: str, *, timeout: int = DEFAULT_TIMEOUT_SECONDS) -> list[VulnerabilityRecord]:
     """Retrieve one CVE by identifier from the official NVD CVE API v2."""
     normalized = cve_id.strip().upper()
-    if len(normalized) > 32 or not normalized.startswith("CVE-") or not all(part.isdigit() for part in normalized[4:].split("-")) or len(normalized.split("-")) != 3:
+    parts = normalized.split("-")
+    if len(normalized) > 32 or len(parts) != 3 or parts[0] != "CVE" or not all(part.isdigit() for part in parts[1:]):
         raise ValueError("Enter a CVE identifier such as CVE-2024-12345.")
     url = NVD_CVE_API + "?" + urlencode({"cveId": normalized})
     payload = fetch_json(url, timeout=timeout)
