@@ -159,18 +159,22 @@ if (assetForm) {
     const name = nameInput.value.trim();
     if (!name) { nameInput.focus(); return; }
     assets.unshift({id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2), name, type:typeInput.value, owner:ownerInput.value.trim()});
-    if (saveAssets()) {
-      assetForm.reset();
-      nameInput.focus();
+    if (!saveAssets()) {
+      assets.shift();
+      renderAssets();
+      return;
     }
+    assetForm.reset();
+    nameInput.focus();
     renderAssets();
   });
   assetRows.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-delete-asset]");
     if (!button) return;
     if (!window.confirm(translations[currentLanguage()].deleteConfirm)) return;
+    const previousAssets = assets;
     assets = assets.filter((asset) => asset.id !== button.dataset.deleteAsset);
-    saveAssets();
+    if (!saveAssets()) assets = previousAssets;
     renderAssets();
   });
 }
