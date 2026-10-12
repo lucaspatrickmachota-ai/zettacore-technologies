@@ -32,13 +32,15 @@ pytest
 
 ## Web/PWA prototype
 
+The browser prototype includes a local asset inventory with add/delete controls and Spanish, Brazilian Portuguese and English labels. Records use this browser's local storage; they are not sent to a server and do not synchronize with the desktop app. Clearing browser storage may remove them.
+
 Serve the `web` directory over localhost (service workers require localhost or HTTPS):
 
 ```bash
 python -m http.server 8080 --directory web
 ```
 
-Open http://localhost:8080. In a supported browser, use the browser's install option to install the PWA. This shell is a static prototype; it does not have privileged access to the computer or run security scans.
+Open http://localhost:8080. In a supported browser, use the browser's install option to install the PWA. This prototype does not have privileged access to the computer or run security scans. The inventory is not vulnerability intelligence and does not represent verified security findings.
 
 ## Safety boundaries
 
