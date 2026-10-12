@@ -74,6 +74,7 @@ const assetForm = document.querySelector("#asset-form");
 const assetRows = document.querySelector("#asset-rows");
 const assetTable = document.querySelector("#asset-table");
 const assetEmpty = document.querySelector("#asset-empty");
+const storageWarning = document.querySelector("#storage-warning");
 const STORAGE_KEY = "zettacore-vanguard-assets-v1";
 let assets = [];
 let storageAvailable = true;
@@ -104,8 +105,6 @@ function saveAssets() {
     return true;
   } catch {
     storageAvailable = false;
-    assetEmpty.hidden = false;
-    assetEmpty.textContent = translations[currentLanguage()].storageError;
     return false;
   }
 }
@@ -146,9 +145,12 @@ function renderAssets() {
     assetRows.append(row);
   }
   assetTable.hidden = assets.length === 0;
-  assetEmpty.hidden = assets.length !== 0 && storageAvailable;
+  assetEmpty.hidden = assets.length !== 0;
   if (assets.length === 0 && storageAvailable) assetEmpty.textContent = t.assetEmpty;
-  if (!storageAvailable && assets.length === 0) assetEmpty.textContent = t.storageError;
+  if (storageWarning) {
+    storageWarning.hidden = storageAvailable;
+    storageWarning.textContent = storageAvailable ? "" : t.storageError;
+  }
 }
 if (assetForm) {
   assetForm.addEventListener("submit", (event) => {
