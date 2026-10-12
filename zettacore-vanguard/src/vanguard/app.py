@@ -298,7 +298,7 @@ class VanguardWindow(QMainWindow):
         self.intel_status.setText(f"Saved {count} CVE record(s). Source dates are shown in the table and report.")
 
     def on_lookup_failed(self, message: str) -> None:
-        now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        now = datetime.now(UTC).isoformat(timespec="seconds")
         self.vulnerability_store.record_sync(
             "NIST NVD + CISA KEV", now, now, "error", 0, message[:500]
         )
