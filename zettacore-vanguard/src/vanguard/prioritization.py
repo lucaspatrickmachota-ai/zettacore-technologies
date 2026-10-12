@@ -44,7 +44,8 @@ def assess_priority(record: VulnerabilityRecord) -> PriorityAssessment:
     else:
         rationale.append("CVSS score is outside the expected range; no severity points applied.")
 
-    if record.known_exploited or score >= 70:
+    # Critical CVSS or CISA KEV membership should be escalated for urgent human review.
+    if record.known_exploited or (record.cvss_score is not None and record.cvss_score >= 9.0):
         priority = "P1"
     elif score >= 30:
         priority = "P2"
