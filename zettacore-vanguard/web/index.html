@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d14">
+  <meta name="description" content="ZettaCore Vanguard — Intelligence. Security. Resilience.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/vanguard-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>ZettaCore Vanguard</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">ZV</div>
+      <div><strong>ZETTACORE VANGUARD</strong><small>INTELLIGENCE. SECURITY. RESILIENCE.</small></div>
+    </div>
+    <label class="language-label" for="language">Language
+      <select id="language" aria-label="Language">
+        <option value="es">Español</option>
+        <option value="pt-BR">Português (Brasil)</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+  </header>
+  <main>
+    <section class="welcome">
+      <p class="eyebrow" data-i18n="eyebrow">LOCAL SECURITY WORKSPACE · MVP 0.1.0</p>
+      <h1 data-i18n="headline">Inteligencia clara. Seguridad con evidencia.</h1>
+      <p class="lede" data-i18n="lede">Una base de trabajo para inventario autorizado e inteligencia de vulnerabilidades. Sin detecciones ficticias.</p>
+      <div class="notice"><span class="status-dot"></span><span data-i18n="notice">Prototipo: no realiza escaneos ni detecta malware.</span></div>
+    </section>
+    <section class="grid" aria-label="Product modules">
+      <article class="panel"><span class="panel-icon blue">01</span><h2 data-i18n="assetsTitle">Inventario de activos</h2><p data-i18n="assetsText">Prepara un registro de sistemas y recursos que tienes autorización para revisar.</p><span class="pill" data-i18n="planned">Base inicial</span></article>
+      <article class="panel"><span class="panel-icon red">02</span><h2 data-i18n="threatTitle">Inteligencia de amenazas</h2><p data-i18n="threatText">La integración de fuentes CVE y KEV está planificada; todavía no se muestran datos en vivo.</p><span class="pill muted" data-i18n="plannedNext">Siguiente fase</span></article>
+      <article class="panel"><span class="panel-icon silver">03</span><h2 data-i18n="reportsTitle">Informes verificables</h2><p data-i18n="reportsText">Los futuros informes incluirán fuentes, fechas, evidencia y límites del análisis.</p><span class="pill muted" data-i18n="plannedNext">Siguiente fase</span></article>
+    </section>
+    <section class="panel status-panel">
+      <div><p class="eyebrow" data-i18n="principleLabel">PRINCIPIO OPERATIVO</p><h2 data-i18n="principleTitle">La evidencia antes que la alarma.</h2></div>
+      <p data-i18n="principleText">Una vulnerabilidad publicada no demuestra por sí sola que un sistema esté comprometido. Vanguard distinguirá los datos de inteligencia de los hallazgos realmente verificados.</p>
+    </section>
+  </main>
+  <footer><span>© ZettaCore Technologies</span><span data-i18n="footer">Prototipo local · Sin telemetría ni análisis activo</span></footer>
+  <script src="./app.js" defer></script>
+</body>
+</html>
