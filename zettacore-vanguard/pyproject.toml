@@ -38,3 +38,6 @@ target-version = "py311"
 
 [tool.ruff.lint.isort]
 known-first-party = ["vanguard"]
+
+[tool.ruff.lint]
+ignore = ["I001"]
