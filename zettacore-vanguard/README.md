@@ -2,73 +2,82 @@
 
 **INTELLIGENCE. SECURITY. RESILIENCE.**
 
-Vanguard is an independent ZettaCore Technologies cybersecurity product in early development. This repository area contains a local-first desktop prototype, an installable web/PWA shell, and the first public vulnerability-intelligence modules. It does not modify ZettaCore Sentinel.
+Vanguard is an independent ZettaCore Technologies cybersecurity product in active early development. It contains a local-first PySide6 desktop app, an installable web/PWA shell, public vulnerability-intelligence connectors, local persistence and an initial PDF reporting module. It does not modify ZettaCore Sentinel.
 
-## Current status
+## Current working capabilities
 
-This remains an **early prototype, not a finished security product**. The desktop app and PWA manage separate local asset inventories. Python modules can normalize NVD CVE API v2 records, read the CISA Known Exploited Vulnerabilities (KEV) catalog, enrich CVE records with KEV membership, and produce a transparent triage priority. The connector functions are not yet integrated into the desktop or web UI, and data is not yet persisted as vulnerability records. PDF reporting, asset-to-CVE matching, active assessment, and Windows packaging remain pending.
+- Manage an authorized asset inventory locally in SQLite.
+- Look up a specific CVE through the NIST NVD CVE API v2.
+- Enrich the result using the CISA Known Exploited Vulnerabilities (KEV) catalog.
+- Store normalized CVE metadata and a history of lookup attempts in the local database.
+- View saved records with an explainable P1–P4 review priority.
+- Export a PDF report in English, Spanish or Brazilian Portuguese.
+- Use the separate web/PWA prototype in Spanish, Brazilian Portuguese and English; its browser inventory is local to that browser and does not sync with the desktop app.
 
-The priority is an explainable triage heuristic, not a probability of exploitation. A CVE or KEV listing does not prove that an asset is affected or compromised. Confirm product/version and environment-specific evidence separately.
+**Important limitations:** this is an MVP, not a complete security product. The desktop UI currently performs single-CVE lookups, not a full catalog synchronization. It does not yet match assets to affected products/versions, confirm asset findings, run active scans, detect malware or perform remediation. A CVE or KEV listing is not proof that an asset is vulnerable or compromised. The P1–P4 score is a review heuristic, not a probability of exploitation. The desktop interface is currently English-only.
 
-## Desktop app
+## Requirements and install
 
-Requirements: Python 3.11+ (recommended) and dependencies from `pyproject.toml`.
+Python 3.11+ is recommended. The desktop UI uses PySide6; PDF export uses ReportLab.
 
 ```bash
 cd zettacore-vanguard
 python -m venv .venv
 # Windows: .venv\\Scripts\\activate
 # Linux/macOS: source .venv/bin/activate
-python -m pip install -e ".[dev]"
+python -m pip install -e ".[dev,reports]"
 python -m vanguard
 ```
 
-The app stores its SQLite database in the user's application-data directory, not inside the source checkout.
+The app stores its SQLite database in the user's application-data directory, not inside the source checkout. The web/PWA stores its inventory separately in the current browser's local storage.
 
-## Run tests
+## Run tests and quality checks
 
 ```bash
-python -m pip install -e ".[dev]"
-pytest
+python -m pip install -e ".[dev,reports]"
+pytest -q
 ruff check src tests
 node --check web/app.js
 ```
 
-## Public vulnerability intelligence modules
+The CI workflow runs these checks on relevant changes. The test suite uses mocked source responses for network-related behavior; a passing test run does not imply that upstream APIs are currently reachable.
 
-- `vanguard.intelligence.fetch_cve("CVE-2025-12345")` queries the configured official NVD CVE API v2 endpoint.
-- `vanguard.intelligence.fetch_kev_catalog()` reads the public CISA KEV catalog.
-- `vanguard.intelligence.enrich_with_kev(records, catalog)` marks whether a CVE appears in KEV and retains the catalog's dates/actions.
-- `vanguard.prioritization.assess_priority(record)` returns a P1–P4 triage priority, score, rationale, and limitations.
+## Public vulnerability intelligence
 
-Connectors use fixed official endpoints, a timeout and response-size limit. Network behavior should be tested with mocks; normal unit tests do not need live internet access. Respect upstream availability, rate limits and terms of use. No API key is required by this initial connector implementation.
+- The intelligence module's fetch_cve function queries NIST NVD.
+- The fetch_kev_catalog function reads the public CISA KEV catalog.
+- The enrich_with_kev function attaches KEV status and relevant dates/actions.
+- The prioritization module returns a transparent P1–P4 triage assessment with rationale and limitations.
+- VulnerabilityStore persists records and sync history.
+- The reporting module exports PDF reports.
+
+Connectors use fixed official endpoints, a timeout and response-size limit. Respect upstream availability, rate limits and terms of use. A failed source lookup is reported; no vulnerability records are fabricated. Imported descriptions are treated as untrusted text.
 
 ## Web/PWA prototype
 
-The browser prototype includes a local asset inventory with add/delete controls and Spanish, Brazilian Portuguese and English labels. Records use this browser's local storage; they are not sent to a server and do not synchronize with the desktop app. Clearing browser storage may remove them.
-
-Serve the `web` directory over localhost (service workers require localhost or HTTPS):
+Serve the web directory over localhost (service workers require localhost or HTTPS):
 
 ```bash
 python -m http.server 8080 --directory web
 ```
 
-Open http://localhost:8080. In a supported browser, use the browser's install option to install the PWA. This prototype does not have privileged access to the computer or run security scans. The inventory is not vulnerability intelligence and does not represent verified security findings.
+Open http://localhost:8080. In a supported browser, use the browser's install option to install the PWA. The browser prototype does not have privileged access to the computer or run security scans. Clearing browser storage may remove its records.
 
 ## Safety boundaries
 
-- No active network scanning or exploitation is implemented.
-- Assets are manually entered by the user; only assess systems for which you have explicit authorization.
+- No active network scanning, exploitation or remediation is implemented.
+- Only assess systems for which you have explicit authorization.
 - Public threat intelligence is not proof that a device is infected or vulnerable.
 - Do not put secrets, credentials, or customer-sensitive data in test records or source control.
-- Treat imported descriptions and references as untrusted data, not executable instructions.
 - Never describe placeholder UI as a live detection.
 
-## Planned milestones
+## Roadmap to a distributable product
 
-1. Local inventory and desktop shell.
-2. Public CVE and CISA KEV connectors with source timestamps and clear failure handling. **Initial parser/connectors now exist; UI and persistence integration remain.**
-3. Asset-to-vulnerability evidence model and transparent prioritization.
-4. PDF executive/technical reports and full Spanish / Brazilian Portuguese / English localization.
-5. Security review, accessibility checks, broader automated tests and Windows packaging.
-6. Later, separately scoped authorized assessments and enterprise integrations.
+1. Stabilize the current desktop CVE lookup, local persistence and PDF export.
+2. Match assets to products and versions using explicit evidence; distinguish confirmed, probable, possible and unverified.
+3. Add stronger multilingual desktop UI, accessibility, error handling and offline views of saved records.
+4. Add broader tests, dependency/security review and a repeatable Windows packaging workflow.
+5. Build and test a Windows installer on a clean Windows environment, including install, upgrade, persistence and uninstall.
+6. Only later, consider separately scoped authorized assessments and enterprise integrations.
+
+Each milestone should ship with executable code, tests and honest documentation. The approved Vanguard emblem must be integrated when its original asset is available; do not replace it with a temporary design.
