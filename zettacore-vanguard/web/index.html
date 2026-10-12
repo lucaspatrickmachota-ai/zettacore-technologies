@@ -31,6 +31,21 @@
       <p class="lede" data-i18n="lede">Una base de trabajo para inventario autorizado e inteligencia de vulnerabilidades. Sin detecciones ficticias.</p>
       <div class="notice"><span class="status-dot"></span><span data-i18n="notice">Prototipo: no realiza escaneos ni detecta malware.</span></div>
     </section>
+    <section class="panel inventory-panel" aria-labelledby="assets-heading">
+      <div class="inventory-heading">
+        <div><p class="eyebrow" data-i18n="assetsEyebrow">INVENTARIO LOCAL</p><h2 id="assets-heading" data-i18n="assetsTitle">Inventario de activos</h2><p data-i18n="assetsText">Registra los sistemas y recursos que tienes autorización para revisar.</p></div>
+        <span class="pill" data-i18n="localOnly">Solo en este navegador</span>
+      </div>
+      <form id="asset-form" class="asset-form">
+        <label><span data-i18n="assetName">Nombre del activo</span><input id="asset-name" name="name" required maxlength="120" autocomplete="off" data-i18n-placeholder="assetNamePlaceholder" placeholder="Ej.: Servidor web de pruebas"></label>
+        <label><span data-i18n="assetType">Tipo</span><select id="asset-type" name="type"><option value="server" data-i18n="typeServer">Servidor</option><option value="workstation" data-i18n="typeWorkstation">Equipo</option><option value="website" data-i18n="typeWebsite">Web / dominio</option><option value="cloud" data-i18n="typeCloud">Recurso cloud</option><option value="other" data-i18n="typeOther">Otro</option></select></label>
+        <label><span data-i18n="assetOwner">Propietario / equipo</span><input id="asset-owner" name="owner" maxlength="120" autocomplete="off" data-i18n-placeholder="assetOwnerPlaceholder" placeholder="Ej.: Equipo de TI"></label>
+        <button type="submit" data-i18n="addAsset">Añadir activo</button>
+      </form>
+      <p class="inventory-note" data-i18n="inventoryPrivacy">Los registros se guardan localmente mediante el almacenamiento de este navegador. No se envían a un servidor.</p>
+      <div id="asset-empty" class="empty-state" data-i18n="assetEmpty">Todavía no hay activos. Añade uno que estés autorizado a revisar.</div>
+      <div class="table-wrap"><table id="asset-table" hidden><thead><tr><th data-i18n="assetName">Nombre del activo</th><th data-i18n="assetType">Tipo</th><th data-i18n="assetOwner">Propietario / equipo</th><th data-i18n="assetActions">Acciones</th></tr></thead><tbody id="asset-rows"></tbody></table></div>
+    </section>
     <section class="grid" aria-label="Product modules">
       <article class="panel"><span class="panel-icon blue">01</span><h2 data-i18n="assetsTitle">Inventario de activos</h2><p data-i18n="assetsText">Prepara un registro de sistemas y recursos que tienes autorización para revisar.</p><span class="pill" data-i18n="planned">Base inicial</span></article>
       <article class="panel"><span class="panel-icon red">02</span><h2 data-i18n="threatTitle">Inteligencia de amenazas</h2><p data-i18n="threatText">La integración de fuentes CVE y KEV está planificada; todavía no se muestran datos en vivo.</p><span class="pill muted" data-i18n="plannedNext">Siguiente fase</span></article>
