@@ -195,11 +195,16 @@ class VanguardWindow(QMainWindow):
         self.cve_input.returnPressed.connect(self.lookup_cve)
         self.lookup_button = QPushButton("Look up CVE")
         self.lookup_button.clicked.connect(self.lookup_cve)
+        self.report_language = QComboBox()
+        self.report_language.addItem("English", "en")
+        self.report_language.addItem("Español", "es")
+        self.report_language.addItem("Português (Brasil)", "pt-BR")
         self.export_button = QPushButton("Export PDF")
         self.export_button.clicked.connect(self.export_report)
         self.export_button.setStyleSheet("background: #26384d;")
         controls.addWidget(self.cve_input, 1)
         controls.addWidget(self.lookup_button)
+        controls.addWidget(self.report_language)
         controls.addWidget(self.export_button)
         layout.addLayout(controls)
 
@@ -338,7 +343,7 @@ class VanguardWindow(QMainWindow):
         if not path.lower().endswith(".pdf"):
             path += ".pdf"
         try:
-            output = generate_vulnerability_report(path, records, language="en")
+            output = generate_vulnerability_report(path, records, language=self.report_language.currentData())
         except (OSError, RuntimeError, ValueError) as error:
             QMessageBox.warning(self, "PDF export failed", str(error))
             return
