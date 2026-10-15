@@ -134,3 +134,19 @@
 @media(max-width:980px){.hero-3d{right:-2vw;top:15%;width:48vw;opacity:.9}.hero-3d-caption{font-size:8px;letter-spacing:.16em}}
 @media(max-width:640px){.hero-3d{right:7vw;top:12%;width:76vw;max-width:370px;opacity:.82}.hero-3d-core{width:34%}.hero-3d-core span{font-size:76px}.hero-3d-caption{bottom:0;font-size:7px;letter-spacing:.13em}.hero-content{margin-top:270px}}
 @media(prefers-reduced-motion:reduce){.hero-3d-core,.hero-3d-orbit{animation:none!important}.hero-3d-core{translate:0 0}}
+
+/* Neural-network sphere: layered SVG connections with a gentle 3D tilt. */
+.hero-3d{transform-style:preserve-3d}
+.neural-network{position:absolute;z-index:2;width:86%;height:86%;overflow:visible;filter:drop-shadow(0 0 7px rgba(37,169,255,.32));transform-style:preserve-3d;animation:neural-drift 16s ease-in-out infinite}
+.neural-links{fill:none;stroke:rgba(73,190,255,.57);stroke-width:1.15;stroke-linecap:round}
+.neural-nodes{fill:#a8edff;stroke:#1e9fe8;stroke-width:1.2}
+.neural-nodes circle{filter:drop-shadow(0 0 5px rgba(55,190,255,.95));animation:neural-pulse 3.4s ease-in-out infinite alternate}
+.neural-nodes circle:nth-child(3n){animation-delay:-1.4s}
+.neural-nodes circle:nth-child(2n){animation-delay:-.7s}
+.hero-3d-core{z-index:3;width:27%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 25%,rgba(225,249,255,.35),rgba(18,86,130,.38) 38%,rgba(3,10,20,.94) 75%);border-color:rgba(105,218,255,.72);box-shadow:inset 3px 3px 15px rgba(255,255,255,.18),inset -8px -10px 24px rgba(0,0,0,.7),0 0 38px rgba(37,169,255,.32);transform:translateZ(36px)}
+.hero-3d-core span{font-size:clamp(48px,7vw,86px)}
+.hero-3d-orbit{z-index:1;border-color:rgba(94,216,255,.27)}
+@keyframes neural-drift{0%,100%{transform:rotateY(-12deg) rotateX(7deg) scale(.97)}50%{transform:rotateY(12deg) rotateX(-5deg) scale(1.02)}}
+@keyframes neural-pulse{from{opacity:.55}to{opacity:1}}
+@media(max-width:640px){.neural-network{width:91%;height:91%}.hero-3d-core{width:27%}.hero-3d-core span{font-size:66px}}
+@media(prefers-reduced-motion:reduce){.neural-network,.neural-nodes circle{animation:none!important}}
