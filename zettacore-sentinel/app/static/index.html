@@ -1,27 +1,122 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111820">
-<meta name="description" content="ZettaCore Sentinel identifica señales técnicas de riesgo en enlaces y explica los resultados.">
-<title>ZettaCore Sentinel | Link Security</title>
-<link rel="stylesheet" href="/static/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07101b">
+<meta name="description" content="ZettaCore Sentinel: análisis explicable de enlaces con heurísticas locales y consulta externa opcional con consentimiento.">
+<title>ZettaCore Sentinel | Security Overview</title>
+<link rel="stylesheet" href="/static/style.css?v=031-dashboard">
 </head>
 <body>
-<header class="topbar">
-<a class="identity" href="/" aria-label="ZettaCore Sentinel"><span class="mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M6 9H30L6 27H30"/></svg></span><span><strong>ZETTACORE <b>SENTINEL</b></strong><small data-i18n="productLine">ANÁLISIS DE ENLACES</small></span></a>
-<div class="tools"><span class="status"><i></i><span data-i18n="localMode">Análisis local</span></span><label class="language"><span class="sr-only" data-i18n="language">Idioma</span><select id="language" aria-label="Idioma"><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="en">English</option></select></label></div>
-</header>
-<main>
-<section class="intro"><p class="eyebrow" data-i18n="eyebrow">SEGURIDAD DIGITAL / ANÁLISIS DE ENLACES</p><h1 data-i18n="headline">Comprueba el enlace<br>antes de <em>abrirlo.</em></h1><p class="lede" data-i18n="intro">Revisa señales técnicas de riesgo con explicaciones claras. Sentinel no visita la web de destino durante el análisis.</p></section>
-<section class="workspace">
-<div class="panel-head"><div><span class="step" data-i18n="step">ANÁLISIS</span><h2 data-i18n="analyzeTitle">Analizar un enlace</h2></div><span class="number">01</span></div>
-<form id="form"><label for="url" data-i18n="urlLabel">Pega aquí el enlace recibido por SMS, WhatsApp, correo o web</label><div class="urlrow"><input id="url" type="text" maxlength="2048" autocomplete="url" placeholder="https://ejemplo.com/cuenta" required><button id="submit" type="submit"><span data-i18n="analyzeButton">Analizar enlace</span><span aria-hidden="true">↗</span></button></div>
-<div class="formmeta"><span data-i18n="privacyNote">La comprobación local no abre el destino ni envía el enlace a terceros.</span><span data-i18n="noGuarantee">Sin garantía de seguridad</span></div>
-<details class="advanced"><summary data-i18n="advanced">Opciones avanzadas</summary><label class="consent" for="externalConsent"><input id="externalConsent" type="checkbox"><span data-i18n="externalConsent">Solicitar consulta opcional a URLhaus. Si está habilitada en el servidor, se compartirá con ese proveedor la URL completa, incluida la ruta y los parámetros.</span></label></details><div id="error" class="error hidden" role="alert"></div></form>
-</section>
-<section class="principles"><article><span>01</span><div><h3 data-i18n="p1title">Privacidad por defecto</h3><p data-i18n="p1">El análisis local no visita el destino ni envía la URL a terceros.</p></div></article><article><span>02</span><div><h3 data-i18n="p2title">Resultados explicables</h3><p data-i18n="p2">Cada señal incluye el motivo y la evidencia observada.</p></div></article><article><span>03</span><div><h3 data-i18n="p3title">Sin falsas certezas</h3><p data-i18n="p3">No detectar señales no significa que el enlace sea seguro.</p></div></article></section>
-<section id="results" class="results hidden" aria-live="polite"></section>
-<footer><strong>ZETTACORE <b>SENTINEL</b></strong><p data-i18n="disclaimer">Herramienta experimental de evaluación inicial. Puede producir falsos positivos y negativos. No es una certificación de seguridad. Confirma el remitente y el dominio por un canal independiente.</p><span>© ZettaCore Technologies</span></footer>
-</main><script src="/static/app.js" defer></script>
-</body></html>
+<div class="app-frame">
+  <aside class="sidebar">
+    <a class="identity" href="#dashboard" aria-label="ZettaCore Sentinel">
+      <span class="brand-shield" aria-hidden="true"><svg viewBox="0 0 40 44"><path d="M20 2 36 8v12c0 10-6.7 17.2-16 22C10.7 37.2 4 30 4 20V8Z"/><path class="shield-s" d="M28 13H14l-4 5 15 8-4 5H10"/></svg></span>
+      <span class="brand-words"><strong>SENTINEL</strong><small>ZETTACORE TECHNOLOGIES</small></span>
+    </a>
+    <nav class="side-nav" aria-label="Main navigation">
+      <a class="nav-link active" href="#dashboard" data-i18n="dashNavOverview"><span class="nav-icon">▦</span>Overview</a>
+      <a class="nav-link" href="#analyzer" data-i18n="dashNavAnalyze"><span class="nav-icon">⌕</span>Analyze link</a>
+      <a class="nav-link" href="#recent" data-i18n="dashNavRecent"><span class="nav-icon">◷</span>Recent analyses</a>
+      <a class="nav-link" href="#coverage" data-i18n="dashNavCoverage"><span class="nav-icon">⌘</span>Rule coverage</a>
+      <a class="nav-link" href="#scope" data-i18n="dashNavScope"><span class="nav-icon">◇</span>Privacy & scope</a>
+      <a class="nav-link" href="/api/docs" target="_blank" rel="noopener noreferrer"><span class="nav-icon">↗</span>API documentation</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-status"><i></i><span data-i18n="localMode">Análisis local</span></div>
+      <div class="sidebar-version">SENTINEL v0.3.1</div>
+      <p data-i18n="dashSidebarNote">The destination is not visited during analysis.</p>
+    </div>
+  </aside>
+
+  <div class="main-column">
+    <header class="topbar">
+      <div class="topbar-label"><span class="crumb" data-i18n="dashBreadcrumb">SECURITY WORKSPACE</span><strong data-i18n="dashTopTitle">Overview</strong></div>
+      <form id="form" class="quick-search" autocomplete="off">
+        <label class="sr-only" for="url" data-i18n="urlLabel">Paste a link to analyze</label>
+        <span class="search-symbol" aria-hidden="true">⌕</span>
+        <input id="url" type="text" maxlength="2048" autocomplete="url" placeholder="https://example.com/account" required>
+        <button id="submit" type="submit"><span data-i18n="analyzeButton">Analyze link</span><span aria-hidden="true">↗</span></button>
+        <details class="advanced">
+          <summary aria-label="Advanced options" title="Advanced options">⚙</summary>
+          <label class="consent" for="externalConsent"><input id="externalConsent" type="checkbox"><span data-i18n="externalConsent">Optional URLhaus lookup; the full URL may be shared with that provider.</span></label>
+        </details>
+        <div id="error" class="error hidden" role="alert"></div>
+      </form>
+      <div class="topbar-tools">
+        <span class="mode-chip"><i></i><span data-i18n="dashLocalOnly">LOCAL RULES</span></span>
+        <label class="language"><span class="sr-only" data-i18n="language">Language</span>
+          <select id="language" aria-label="Language"><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="en">English</option></select>
+        </label>
+      </div>
+    </header>
+
+    <main id="dashboard" class="dashboard-main">
+      <section class="page-heading">
+        <div><p class="eyebrow" data-i18n="dashEyebrow">SENTINEL / SECURITY OVERVIEW</p><h1 data-i18n="dashTitle">Security overview</h1><p data-i18n="dashSubtitle">An explainable view of the link checks performed in this browser session.</p></div>
+        <span class="version-pill"><span class="pulse"></span> SENTINEL <b>0.3.1</b></span>
+      </section>
+
+      <section class="metric-grid" aria-label="Session metrics">
+        <article class="metric-card metric-blue"><div class="metric-top"><span data-i18n="dashMetricAnalyses">Analyses this session</span><span class="metric-icon">⌕</span></div><div class="metric-value" id="metric-analyses">0</div><div class="metric-foot" data-i18n="dashSessionOnly">Current browser session</div><div class="sparkline spark-blue"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        <article class="metric-card metric-red"><div class="metric-top"><span data-i18n="dashMetricSignals">Risk signals found</span><span class="metric-icon">!</span></div><div class="metric-value" id="metric-signals">0</div><div class="metric-foot" data-i18n="dashSignalFoot">Across the analyses shown below</div><div class="sparkline spark-red"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        <article class="metric-card metric-cyan"><div class="metric-top"><span data-i18n="dashMetricExternal">External lookups</span><span class="metric-icon">◎</span></div><div class="metric-value" id="metric-external">0</div><div class="metric-foot" data-i18n="dashExternalFoot">Only when requested and available</div><div class="sparkline spark-cyan"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        <article class="metric-card metric-green"><div class="metric-top"><span data-i18n="dashMetricVisits">Destinations visited</span><span class="metric-icon">⊘</span></div><div class="metric-value" id="metric-visits">0</div><div class="metric-foot"><span class="safe-dot"></span><span data-i18n="dashNeverVisited">Never by design</span></div><div class="no-visit-line"><span data-i18n="dashPrivacyFirst">Privacy-first analysis</span></div></article>
+      </section>
+
+      <section class="primary-grid">
+        <article class="panel coverage-panel" id="coverage">
+          <div class="panel-header"><div><p class="panel-kicker" data-i18n="dashPanelOne">ANALYSIS SCOPE</p><h2 data-i18n="dashCoverageTitle">Local rule coverage</h2><p class="panel-subtitle" data-i18n="dashCoverageSubtitle">Signals checked by the current version</p></div><span class="panel-badge"><i></i><span data-i18n="dashNoLiveFeed">NO LIVE FEED</span></span></div>
+          <div class="network-wrap" aria-hidden="true">
+            <div class="network-glow"></div>
+            <svg class="network-svg" viewBox="0 0 640 300">
+              <defs><radialGradient id="net-glow"><stop offset="0" stop-color="#159cff" stop-opacity=".25"/><stop offset="1" stop-color="#159cff" stop-opacity="0"/></radialGradient></defs>
+              <circle cx="320" cy="150" r="137" fill="url(#net-glow)"/><ellipse cx="320" cy="150" rx="135" ry="62" transform="rotate(-28 320 150)" class="network-ring"/><ellipse cx="320" cy="150" rx="110" ry="88" transform="rotate(38 320 150)" class="network-ring ring-dashed"/>
+              <g class="network-lines"><path d="M320 150 228 96 173 143 227 207 320 150 400 91 467 138 420 213 320 150 320 54 320 245 173 143 400 91 227 207 467 138 228 96 420 213 320 150 267 118 369 178 320 245 267 118 173 143M320 54 400 91M320 54 228 96M320 245 420 213M467 138 520 178"/></g>
+              <g class="network-dots"><circle cx="320" cy="150" r="8"/><circle cx="228" cy="96" r="5"/><circle cx="173" cy="143" r="4"/><circle cx="227" cy="207" r="5"/><circle cx="400" cy="91" r="6"/><circle cx="467" cy="138" r="5"/><circle cx="420" cy="213" r="5"/><circle cx="320" cy="54" r="4"/><circle cx="320" cy="245" r="5"/><circle cx="267" cy="118" r="4"/><circle cx="369" cy="178" r="4"/><circle cx="520" cy="178" r="3"/></g>
+            </svg>
+            <div class="network-center"><span class="center-shield">S</span><b data-i18n="dashLocalEngine">LOCAL ENGINE</b><small data-i18n="dashHeuristicMode">Heuristic analysis</small></div>
+          </div>
+          <div class="coverage-legend"><span><i class="legend-blue"></i><b data-i18n="dashDomainStructure">URL & domain structure</b></span><span><i class="legend-cyan"></i><b data-i18n="dashPatterns">Suspicious patterns</b></span><span><i class="legend-purple"></i><b data-i18n="dashOptionalIntel">Optional reputation lookup</b></span></div>
+          <div class="coverage-note"><span class="info-icon">i</span><p data-i18n="dashCoverageNote">This visualization represents the rule set, not a live global threat map. Sentinel does not fetch the destination.</p></div>
+        </article>
+
+        <article class="panel recent-panel" id="recent">
+          <div class="panel-header"><div><p class="panel-kicker" data-i18n="dashPanelTwo">SESSION HISTORY</p><h2 data-i18n="dashRecentTitle">Recent analyses</h2><p class="panel-subtitle" data-i18n="dashRecentSubtitle">Hostnames only · stored in this tab</p></div><a href="#analyzer" class="panel-action" data-i18n="dashNewAnalysis">New analysis ↗</a></div>
+          <div id="recent-list" class="recent-list"><div class="empty-state"><span class="empty-symbol">⌕</span><strong data-i18n="dashRecentEmptyTitle">No analyses yet</strong><p data-i18n="dashRecentEmpty">Analyze a link to see its hostname and result here. The full URL is not stored in the session history.</p></div></div>
+          <div class="recent-footer"><span class="status-dot"></span><span data-i18n="dashLocalHistory">Local session history</span><span class="recent-count" id="recent-count">0 / 12</span></div>
+        </article>
+      </section>
+
+      <section class="lower-grid">
+        <article class="panel trend-panel">
+          <div class="panel-header"><div><p class="panel-kicker" data-i18n="dashPanelThree">ACTIVITY</p><h2 data-i18n="dashTrendTitle">Signals per analysis</h2></div><span class="tiny-badge" data-i18n="dashSessionOnly">Current browser session</span></div>
+          <div id="trend-chart" class="trend-chart"><div class="empty-chart" data-i18n="dashTrendEmpty">Your analysis activity will appear here.</div></div>
+          <div class="chart-legend"><span><i class="legend-blue"></i><b data-i18n="dashSignalsLabel">Signals found</b></span><span data-i18n="dashLatestFirst">Latest analyses first</span></div>
+        </article>
+
+        <article class="panel distribution-panel">
+          <div class="panel-header"><div><p class="panel-kicker" data-i18n="dashPanelFour">RESULTS</p><h2 data-i18n="dashRiskTitle">Risk distribution</h2></div><span class="tiny-badge" data-i18n="dashSessionOnly">Current browser session</span></div>
+          <div class="distribution-content"><div id="risk-donut" class="risk-donut"><div class="donut-hole"><strong id="donut-total">0</strong><span data-i18n="dashAnalysesLabel">analyses</span></div></div><div id="risk-legend" class="risk-legend"><div class="empty-chart" data-i18n="dashRiskEmpty">No results to summarize yet.</div></div></div>
+        </article>
+
+        <article class="panel scope-panel" id="scope">
+          <div class="panel-header"><div><p class="panel-kicker" data-i18n="dashPanelFive">TRANSPARENCY</p><h2 data-i18n="dashScopeTitle">Protection scope</h2></div><span class="scope-mark">i</span></div>
+          <div class="scope-list">
+            <div class="scope-row"><span class="scope-icon blue-text">↗</span><div><b data-i18n="dashScopeOne">Destination fetching</b><small data-i18n="dashScopeOneDetail">Disabled — the target is not opened</small></div><span class="scope-state state-on" data-i18n="dashDisabled">DISABLED</span></div>
+            <div class="scope-row"><span class="scope-icon purple-text">◎</span><div><b data-i18n="dashScopeTwo">External reputation</b><small data-i18n="dashScopeTwoDetail">URLhaus is optional and consent-gated</small></div><span class="scope-state state-optional" data-i18n="dashOptional">OPTIONAL</span></div>
+            <div class="scope-row"><span class="scope-icon amber-text">◇</span><div><b data-i18n="dashScopeThree">Risk indicator</b><small data-i18n="dashScopeThreeDetail">Rule-based score, not a probability</small></div><span class="scope-state state-info" data-i18n="dashHeuristic">HEURISTIC</span></div>
+          </div>
+          <p class="scope-disclaimer" data-i18n="dashScopeNote">No alert does not mean safe. Sentinel is an experimental triage tool, not a security certification.</p>
+        </article>
+      </section>
+
+      <section id="results" class="results hidden" aria-live="polite"></section>
+      <footer class="app-footer"><div><strong>ZETTACORE <b>SENTINEL</b></strong><span data-i18n="dashFooter">Privacy-minded link triage · Experimental MVP</span></div><p data-i18n="disclaimer">Experimental first-pass triage tool. False positives and negatives are possible. This is not a security certification.</p><a href="/api/health">API health ↗</a></footer>
+    </main>
+  </div>
+</div>
+<script src="/static/app.js?v=031-dashboard" defer></script>
+</body>
+</html>
