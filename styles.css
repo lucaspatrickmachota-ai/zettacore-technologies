@@ -114,3 +114,23 @@
 .portfolio-actions{display:flex;justify-content:flex-start;flex-wrap:wrap;margin-top:24px}
 .portfolio-actions .button{white-space:normal;text-align:center}
 @media(max-width:640px){.portfolio-actions .button{width:100%}}
+
+
+/* Lightweight CSS 3D centerpiece for the hero — no WebGL or external assets. */
+.hero-3d{position:absolute;z-index:1;right:5vw;top:13%;width:min(39vw,520px);aspect-ratio:1;display:grid;place-items:center;perspective:900px;pointer-events:none;isolation:isolate}
+.hero-3d:before{content:"";position:absolute;inset:19%;border-radius:50%;background:radial-gradient(circle at 32% 27%,rgba(94,216,255,.20),rgba(15,67,112,.10) 34%,rgba(2,8,16,.86) 72%);box-shadow:inset -18px -22px 48px rgba(0,0,0,.65),inset 8px 8px 30px rgba(94,216,255,.10),0 0 65px rgba(37,169,255,.18);border:1px solid rgba(94,216,255,.32);transform:translateZ(25px)}
+.hero-3d-core{position:relative;z-index:2;width:37%;aspect-ratio:1;display:grid;place-items:center;border:1px solid rgba(220,245,255,.75);border-radius:24%;background:linear-gradient(145deg,rgba(232,245,255,.24),rgba(23,87,131,.16) 48%,rgba(3,12,24,.9));box-shadow:inset 3px 3px 12px rgba(255,255,255,.28),inset -8px -9px 20px rgba(0,0,0,.48),0 0 30px rgba(37,169,255,.25);transform:rotateX(-12deg) rotateY(-18deg) rotateZ(-8deg);animation:zetta-float 6s ease-in-out infinite}
+.hero-3d-core span{font:700 clamp(58px,9vw,112px)/1 "Space Grotesk",sans-serif;color:#eaf8ff;text-shadow:0 0 8px rgba(94,216,255,.9),0 0 28px rgba(37,169,255,.7);transform:skewY(-8deg)}
+.hero-3d-orbit{position:absolute;inset:13%;border:1px solid rgba(94,216,255,.35);border-radius:50%;box-shadow:0 0 18px rgba(37,169,255,.08);transform-style:preserve-3d}
+.orbit-one{transform:rotateX(66deg) rotateZ(-22deg);animation:zetta-orbit-a 17s linear infinite}
+.orbit-two{inset:7%;transform:rotateY(67deg) rotateZ(22deg);border-color:rgba(94,216,255,.22);animation:zetta-orbit-b 21s linear infinite}
+.orbit-three{inset:23%;transform:rotateX(75deg) rotateY(32deg);border-style:dashed;border-color:rgba(94,216,255,.24);animation:zetta-orbit-a 28s linear infinite reverse}
+.hero-3d .node{position:absolute;width:9px;height:9px;border-radius:50%;background:#9beaff;box-shadow:0 0 10px #25a9ff,0 0 25px rgba(37,169,255,.8)}
+.node-a{top:8%;left:23%}.node-b{right:5%;top:54%;width:6px!important;height:6px!important}.node-c{bottom:12%;left:18%;width:5px!important;height:5px!important}
+.hero-3d-caption{position:absolute;bottom:3%;width:100%;text-align:center;color:rgba(175,221,245,.7);font-size:9px;letter-spacing:.24em}
+@keyframes zetta-float{0%,100%{translate:0 0;transform:rotateX(-12deg) rotateY(-18deg) rotateZ(-8deg)}50%{translate:0 -10px;transform:rotateX(-8deg) rotateY(-10deg) rotateZ(-4deg)}}
+@keyframes zetta-orbit-a{to{rotate:0 0 1 360deg}}
+@keyframes zetta-orbit-b{to{rotate:1 0 0 360deg}}
+@media(max-width:980px){.hero-3d{right:-2vw;top:15%;width:48vw;opacity:.9}.hero-3d-caption{font-size:8px;letter-spacing:.16em}}
+@media(max-width:640px){.hero-3d{right:7vw;top:12%;width:76vw;max-width:370px;opacity:.82}.hero-3d-core{width:34%}.hero-3d-core span{font-size:76px}.hero-3d-caption{bottom:0;font-size:7px;letter-spacing:.13em}.hero-content{margin-top:270px}}
+@media(prefers-reduced-motion:reduce){.hero-3d-core,.hero-3d-orbit{animation:none!important}.hero-3d-core{translate:0 0}}
