@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#07101b">
 <meta name="description" content="ZettaCore Sentinel: análisis explicable de enlaces con heurísticas locales y consulta externa opcional con consentimiento.">
 <title>ZettaCore Sentinel | Security Overview</title>
-<link rel="stylesheet" href="/static/style.css?v=032-future-pass">
+<link rel="stylesheet" href="/static/style.css?v=033-orbital-core">
 </head>
 <body>
 <div class="app-frame">
@@ -69,7 +69,8 @@
       <section class="primary-grid">
         <article class="panel coverage-panel" id="coverage">
           <div class="panel-header"><div><p class="panel-kicker" data-i18n="dashPanelOne">ANALYSIS SCOPE</p><h2 data-i18n="dashCoverageTitle">Local rule coverage</h2><p class="panel-subtitle" data-i18n="dashCoverageSubtitle">Signals checked by the current version</p></div><span class="panel-badge"><i></i><span data-i18n="dashNoLiveFeed">NO LIVE FEED</span></span></div>
-          <div class="network-wrap" aria-hidden="true">
+          <div class="network-wrap orbital-wrap" aria-hidden="true">
+             <canvas class="orbital-canvas" id="sentinel-orb" aria-hidden="true"></canvas>
             <div class="network-glow"></div>
             <svg class="network-svg" viewBox="0 0 640 300">
               <defs><radialGradient id="net-glow"><stop offset="0" stop-color="#159cff" stop-opacity=".25"/><stop offset="1" stop-color="#159cff" stop-opacity="0"/></radialGradient></defs>
@@ -118,6 +119,6 @@
     </main>
   </div>
 </div>
-<script src="/static/app.js?v=031-dashboard" defer></script>
+<script src="/static/app.js?v=033-orbital-core" defer></script>
 </body>
 </html>
