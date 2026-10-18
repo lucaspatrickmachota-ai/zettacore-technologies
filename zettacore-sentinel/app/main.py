@@ -14,7 +14,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from app.intel import lookup_urlhaus
 from app.security import BodySizeLimitMiddleware, SlidingWindowLimiter, client_ip, trusted_proxy_hops
 
-APP_VERSION = "0.3.1"
+APP_VERSION = "0.4.0"
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 MAX_BODY_BYTES = 12288
@@ -258,6 +258,68 @@ def analyze(raw: str) -> dict:
     if HEX_ESCAPE.search(parsed.path + "?" + parsed.query):
         add("encoded_url", 4, "low", "La ruta contiene caracteres codificados", "La codificación URL es normal, aunque puede dificultar leer una parte de la ruta.", "Se encontraron secuencias %XX")
 
+    # Additional low-risk-weight URL inspection checks. These remain heuristics,
+    # not claims that DNS, redirects, page content, or reputation were inspected.
+    decoded_path = __import__("urllib.parse", fromlist=["unquote"]).unquote(parsed.path or "").lower()
+    query_lower = (parsed.query or "").lower()
+    if len(value) >= 180:
+        add("long_url", 4, "low", "URL inusualmente larga", "Las URL largas pueden ser legítimas, pero dificultan revisar visualmente el destino y sus parámetros.", f"Longitud total: {len(value)} caracteres")
+    if (parsed.path or "").count("/") >= 6:
+        add("deep_path", 4, "low", "Ruta con muchos niveles", "La ruta tiene varios segmentos. Es habitual en aplicaciones complejas, pero merece revisar el contexto del enlace.", f"Segmentos de ruta aproximados: {(parsed.path or '').count('/')}")
+    if (parsed.query or "").count("&") >= 8:
+        add("many_query_parameters", 4, "low", "Muchos parámetros en la URL", "Una cantidad elevada de parámetros complica la revisión manual y puede corresponder a seguimiento o redirecciones; no es prueba de fraude.", f"Separadores de parámetros: {(parsed.query or '').count('&')}")
+    if re.search(r"(?:%25[0-9a-f]{2}){2,}", (parsed.path or "") + "?" + (parsed.query or ""), re.IGNORECASE):
+        add("nested_encoding", 8, "medium", "Posible codificación anidada", "Se observan varias capas de codificación. Puede ser legítimo, pero dificulta interpretar la ruta o los parámetros.", "Secuencias de codificación %25 repetidas")
+    if re.search(r"\.(?:exe|scr|msi|bat|cmd|ps1|vbs|js|hta|iso|img|apk)(?:$|[?#])", decoded_path):
+        add("executable_download", 18, "medium", "La ruta apunta a una extensión potencialmente ejecutable", "La extensión no demuestra que el archivo sea malicioso. No ejecutes una descarga inesperada y verifica el origen por separado.", "Extensión de ruta potencialmente ejecutable")
+    if re.search(r"\.(?:pdf|doc|docx|xls|xlsx|zip|rar|7z)\.(?:exe|scr|js|bat|cmd)$", decoded_path):
+        add("double_extension", 20, "high", "Posible doble extensión engañosa", "El nombre combina una extensión habitual de documento/archivo con otra ejecutable, patrón que puede usarse para confundir al usuario.", "Extensión ejecutable tras otra extensión")
+    redirect_keys = re.findall(r"(?:^|[&;])\s*(redirect(?:_url)?|return(?:url)?|next|continue|target|dest(?:ination)?|url)\s*=", query_lower)
+    if redirect_keys:
+        add("redirect_parameter", 6, "low", "Parámetro que podría intervenir en una redirección", "El nombre de un parámetro suele utilizarse para redirecciones o destinos de retorno. Sentinel no sigue la redirección ni valida el destino que contenga.", "Nombres de parámetros detectados: " + ", ".join(sorted(set(redirect_keys))))
+    sensitive_keys = re.findall(r"(?:^|[&;])\s*(password|passwd|token|secret|api[_-]?key|sessionid|access[_-]?token)\s*=", query_lower)
+    if sensitive_keys:
+        add("sensitive_query_parameter", 12, "medium", "Parámetro con nombre potencialmente sensible", "La URL parece incluir un parámetro destinado a credenciales o tokens. No se muestran sus valores; evita compartir el enlace si pudiera contener secretos.", "Nombres de parámetros sensibles: " + ", ".join(sorted(set(sensitive_keys))))
+    if re.search(r"(?:^|[/?&=._-])(?:free[_-]?gift|urgent|verify[_-]?now|secure[_-]?login|account[_-]?unlock)(?:$|[/?&=._-])", decoded_path + "?" + query_lower):
+        add("high_pressure_phrase", 5, "low", "Frase de urgencia o incentivo en la URL", "Algunas frases aparecen en señuelos, pero también pueden formar parte de campañas legítimas. Debe interpretarse con el mensaje y el remitente.", "Patrón textual de urgencia/incentivo")
+    if host.count(".") >= 4:
+        add("many_domain_levels", 5, "low", "Host con numerosos niveles de dominio", "Un número alto de niveles dificulta identificar qué dominio controla realmente el servicio. Sentinel no usa una base de sufijos públicos para inferir el registrable con certeza.", f"Puntos en el host: {host.count('.')}")
+    if re.search(r"\.(?:zip|mov|top|click|work|country|gq|tk)$", host):
+        add("tld_context_cue", 2, "low", "Extensión de dominio que requiere contexto", "Esta extensión, por sí sola, no indica fraude. Se utiliza únicamente como señal de poco peso y debe interpretarse junto con otras evidencias.", "Extensión final: ." + host.rsplit(".", 1)[-1])
+    checks_performed = [
+        "Validación de esquema, host, credenciales, puerto y formato de la URL",
+        "Inspección de IPs y nombres locales o internos",
+        "Revisión de acortadores y estructura de subdominios",
+        "Comparación heurística con una lista limitada de marcas conocidas",
+        "Revisión de términos, codificación, parámetros y extensiones de ruta",
+        "Cálculo de señales ponderadas; la puntuación no es una probabilidad",
+    ]
+    checks_not_performed = [
+        "Resolución DNS y datos del registrador/antigüedad del dominio",
+        "Validación del certificado TLS",
+        "Visita al sitio, seguimiento de redirecciones o análisis del contenido",
+        "Reputación externa, salvo que se solicite y la integración esté habilitada",
+    ]
+    severity_counts = {
+        level: sum(1 for item in findings if item["severity"] == level)
+        for level in ("high", "medium", "low")
+    }
+    priority_actions = [item["title"] for item in findings if item["severity"] in {"high", "medium"}]
+    if not priority_actions:
+        priority_actions = [
+            "Verificar el remitente por un canal independiente",
+            "Abrir el sitio oficial escribiendo su dirección manualmente",
+            "No introducir datos si el contexto del mensaje no encaja",
+        ]
+    if severity_counts["high"]:
+        investigation_summary = "Se han detectado señales de prioridad alta. Revisa primero las evidencias señaladas y evita introducir datos o ejecutar descargas hasta confirmar el origen."
+    elif severity_counts["medium"]:
+        investigation_summary = "Hay señales que requieren revisión manual. Ninguna señal aislada demuestra fraude; contrasta el dominio, el contexto y el remitente antes de interactuar."
+    elif findings:
+        investigation_summary = "Se han encontrado señales de baja prioridad. Revisa las evidencias y el contexto; esta pasada no sustituye la comprobación de reputación ni de destino."
+    else:
+        investigation_summary = "Las reglas locales disponibles no han detectado señales destacadas. La evaluación sigue incompleta porque no se comprobó DNS, contenido, certificado, redirecciones ni reputación externa."
+
     score = min(score, 100)
     if score >= 55:
         risk, label, advice = "high", "Varias señales de riesgo", "No introduzcas credenciales ni datos de pago. Abre la web oficial escribiendo su dirección tú mismo y verifica el mensaje por otro canal."
@@ -273,6 +335,11 @@ def analyze(raw: str) -> dict:
         "product": "ZettaCore Sentinel",
         "version": APP_VERSION,
         "analysis_mode": "local_heuristics_only",
+        "investigation_summary": investigation_summary,
+        "checks_performed": checks_performed,
+        "checks_not_performed": checks_not_performed,
+        "priority_actions": priority_actions,
+        "severity_counts": severity_counts,
         "risk": risk,
         "risk_label": label,
         "indicator_score": score,
