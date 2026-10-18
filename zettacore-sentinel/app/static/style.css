@@ -245,3 +245,22 @@ input:hover,select:hover,textarea:hover{border-color:rgba(84,244,255,.48)}
 .orbital-wrap .center-shield{filter:drop-shadow(0 0 12px rgba(72,202,255,.75));text-shadow:0 0 20px rgba(72,202,255,.85)}
 @media(max-width:640px){.orbital-wrap{min-height:245px}.orbital-wrap .network-svg{opacity:.08}.orbital-wrap .network-center{padding:9px 12px}}
 @media(prefers-reduced-motion:reduce){.orbital-canvas{opacity:.82}}
+
+
+/* Sentinel Ops UI: live status, report actions, and scan feedback */
+.heading-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.utility-button,.text-action{border:1px solid rgba(72,202,255,.34);border-radius:9px;background:linear-gradient(135deg,rgba(14,65,112,.62),rgba(5,20,36,.9));color:#bcefff;padding:9px 12px;font-size:11px;font-weight:700;letter-spacing:.02em}
+.utility-button:hover,.text-action:hover{border-color:#54f4ff;box-shadow:0 0 22px rgba(40,180,255,.14);transform:translateY(-1px)}
+.recent-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.text-action{background:transparent;padding:6px 8px;color:#9fc6df;border-color:rgba(72,202,255,.18)}
+.health-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(72,202,255,.22);border-radius:999px;padding:6px 9px;color:#a9c5d9;font:9px 'DM Mono',monospace;letter-spacing:.06em;white-space:nowrap;background:rgba(4,16,28,.72)}
+.health-chip i{width:6px;height:6px;border-radius:50%;background:#ffb24f;box-shadow:0 0 10px currentColor}
+.health-chip.is-online{color:#8dffce;border-color:rgba(61,255,189,.3)}.health-chip.is-online i{background:#3dffbd}
+.health-chip.is-offline{color:#ff9ba8;border-color:rgba(255,93,112,.3)}.health-chip.is-offline i{background:#ff5d70}
+.orbital-wrap.is-scanning .orbital-canvas{filter:brightness(1.5) saturate(1.35);opacity:1}
+.orbital-wrap.is-scanning:after{content:"SCANNING INPUT · LOCAL RULES";position:absolute;z-index:4;left:50%;bottom:12px;transform:translateX(-50%);padding:5px 9px;border:1px solid rgba(84,244,255,.25);border-radius:5px;background:rgba(2,10,20,.88);color:#8eefff;font:9px 'DM Mono',monospace;letter-spacing:.13em;white-space:nowrap;box-shadow:0 0 20px rgba(43,140,255,.12);animation:scan-pulse 1.2s ease-in-out infinite}
+.orbital-wrap.is-scanning .network-center{box-shadow:0 0 36px rgba(84,244,255,.22),inset 0 0 24px rgba(84,244,255,.1);border-color:rgba(84,244,255,.6)}
+@keyframes scan-pulse{50%{opacity:.55}}
+@media(max-width:980px){.health-chip{display:none}.heading-actions{justify-content:flex-start}}
+@media(max-width:640px){.heading-actions{width:100%;justify-content:space-between}.utility-button{font-size:10px;padding:8px}.recent-actions{gap:5px}.text-action{font-size:9px;padding:5px}.orbital-wrap.is-scanning:after{font-size:8px;letter-spacing:.07em}}
+@media(prefers-reduced-motion:reduce){.orbital-wrap.is-scanning:after{animation:none}}
