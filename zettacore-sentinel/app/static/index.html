@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#07101b">
 <meta name="description" content="ZettaCore Sentinel: análisis explicable de enlaces con heurísticas locales y consulta externa opcional con consentimiento.">
 <title>ZettaCore Sentinel | Security Overview</title>
-<link rel="stylesheet" href="/static/style.css?v=033-orbital-core">
+<link rel="stylesheet" href="/static/style.css?v=034-sentinel-ops">
 </head>
 <body>
 <div class="app-frame">
@@ -46,7 +46,7 @@
         <div id="error" class="error hidden" role="alert"></div>
       </form>
       <div class="topbar-tools">
-        <span class="mode-chip"><i></i><span data-i18n="dashLocalOnly">LOCAL RULES</span></span>
+        <span class="mode-chip"><i></i><span data-i18n="dashLocalOnly">LOCAL RULES</span></span><span class="health-chip" id="api-health" role="status"><i></i><span>CHECKING SYSTEM</span></span>
         <label class="language"><span class="sr-only" data-i18n="language">Language</span>
           <select id="language" aria-label="Language"><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="en">English</option></select>
         </label>
@@ -56,7 +56,7 @@
     <main id="dashboard" class="dashboard-main">
       <section class="page-heading">
         <div><p class="eyebrow" data-i18n="dashEyebrow">SENTINEL / SECURITY OVERVIEW</p><h1 data-i18n="dashTitle">Security overview</h1><p data-i18n="dashSubtitle">An explainable view of the link checks performed in this browser session.</p></div>
-        <span class="version-pill"><span class="pulse"></span> SENTINEL <b>0.3.1</b></span>
+        <div class="heading-actions"><span class="version-pill"><span class="pulse"></span> SENTINEL <b>0.3.1</b></span><button class="utility-button" id="export-report" type="button" data-i18n="exportReport">Export report ↓</button></div>
       </section>
 
       <section class="metric-grid" aria-label="Session metrics">
@@ -85,7 +85,7 @@
         </article>
 
         <article class="panel recent-panel" id="recent">
-          <div class="panel-header"><div><p class="panel-kicker" data-i18n="dashPanelTwo">SESSION HISTORY</p><h2 data-i18n="dashRecentTitle">Recent analyses</h2><p class="panel-subtitle" data-i18n="dashRecentSubtitle">Hostnames only · stored in this tab</p></div><a href="#analyzer" class="panel-action" data-i18n="dashNewAnalysis">New analysis ↗</a></div>
+          <div class="panel-header"><div><p class="panel-kicker" data-i18n="dashPanelTwo">SESSION HISTORY</p><h2 data-i18n="dashRecentTitle">Recent analyses</h2><p class="panel-subtitle" data-i18n="dashRecentSubtitle">Hostnames only · stored in this tab</p></div><div class="recent-actions"><button type="button" class="text-action" id="export-history" data-i18n="exportHistory">Export session</button><button type="button" class="text-action" id="clear-history" data-i18n="clearHistory">Clear</button><a href="#analyzer" class="panel-action" data-i18n="dashNewAnalysis">New analysis ↗</a></div></div>
           <div id="recent-list" class="recent-list"><div class="empty-state"><span class="empty-symbol">⌕</span><strong data-i18n="dashRecentEmptyTitle">No analyses yet</strong><p data-i18n="dashRecentEmpty">Analyze a link to see its hostname and result here. The full URL is not stored in the session history.</p></div></div>
           <div class="recent-footer"><span class="status-dot"></span><span data-i18n="dashLocalHistory">Local session history</span><span class="recent-count" id="recent-count">0 / 12</span></div>
         </article>
@@ -119,6 +119,6 @@
     </main>
   </div>
 </div>
-<script src="/static/app.js?v=033-orbital-core" defer></script>
+<script src="/static/app.js?v=034-sentinel-ops" defer></script>
 </body>
 </html>
