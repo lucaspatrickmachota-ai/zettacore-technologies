@@ -109,3 +109,59 @@ applyLanguage();
  resize();if(reduced)draw(0);else requestAnimationFrame(draw);
  if('ResizeObserver'in window)new ResizeObserver(resize).observe(canvas.parentElement);else window.addEventListener('resize',resize,{passive:true});
 })();
+
+
+/* Functional operator controls: live API health, honest scan state, exportable reports. */
+(function(){
+ const health=document.getElementById('api-health');
+ const orb=document.querySelector('.orbital-wrap');
+ const results=document.getElementById('results');
+ const errorBox=document.getElementById('error');
+ const exportReport=document.getElementById('export-report');
+ const exportHistory=document.getElementById('export-history');
+ const clearHistory=document.getElementById('clear-history');
+ const languageSelect=document.getElementById('language');
+ const labels={
+  es:{checking:'COMPROBANDO SISTEMA',online:'API OPERATIVA',offline:'API NO DISPONIBLE',exportReport:'Exportar informe ↓',exportHistory:'Exportar sesión',clearHistory:'Borrar historial',confirmClear:'¿Borrar el historial de esta sesión?',noReport:'Primero analiza un enlace para exportar un informe.'},
+  en:{checking:'CHECKING SYSTEM',online:'API ONLINE',offline:'API UNAVAILABLE',exportReport:'Export report ↓',exportHistory:'Export session',clearHistory:'Clear history',confirmClear:'Clear this session history?',noReport:'Analyze a link first to export a report.'},
+  'pt-BR':{checking:'VERIFICANDO SISTEMA',online:'API ONLINE',offline:'API INDISPONÍVEL',exportReport:'Exportar relatório ↓',exportHistory:'Exportar sessão',clearHistory:'Limpar histórico',confirmClear:'Limpar o histórico desta sessão?',noReport:'Analise um link primeiro para exportar um relatório.'}
+ };
+ const words=()=>labels[languageSelect.value]||labels.es;
+ function label(node,key){if(node)node.textContent=words()[key]}
+ async function checkHealth(){
+  if(!health)return;health.classList.remove('is-online','is-offline');label(health.querySelector('span'),'checking');
+  try{const response=await fetch('/api/health',{headers:{'Accept':'application/json'},cache:'no-store'});if(!response.ok)throw new Error('health');const data=await response.json();if(data.status!=='ok')throw new Error('health');health.classList.add('is-online');label(health.querySelector('span'),'online');health.title='API version '+String(data.version||'unknown')}
+  catch{health.classList.add('is-offline');label(health.querySelector('span'),'offline');health.title='Could not verify API availability'}
+ }
+ function download(name,data){
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ }
+ function safeDate(){return new Date().toISOString().replace(/[:.]/g,'-')}
+ function reportPayload(item){
+  return {product:'ZettaCore Sentinel',report_type:'single_url_analysis',exported_at:new Date().toISOString(),notice:'Experimental heuristic triage; not a security certification. No detected signal does not prove a URL is safe.',result:item};
+ }
+ exportReport?.addEventListener('click',()=>{
+  if(!lastResult){if(errorBox){errorBox.textContent=words().noReport;errorBox.classList.remove('hidden')}return}
+  download('sentinel-report-'+safeDate()+'.json',reportPayload(lastResult));
+ });
+ exportHistory?.addEventListener('click',()=>{
+  download('sentinel-session-'+safeDate()+'.json',{product:'ZettaCore Sentinel',report_type:'browser_session_history',exported_at:new Date().toISOString(),storage:'Current browser session only; hostnames and result summaries, not full URLs.',notice:'Experimental heuristic triage; not a security certification.',analyses:dashboardHistory});
+ });
+ clearHistory?.addEventListener('click',()=>{
+  if(!window.confirm(words().confirmClear))return;
+  dashboardHistory=[];saveDashboardHistory();renderDashboard();
+ });
+ form?.addEventListener('submit',()=>{
+  orb?.classList.add('is-scanning');
+  if(errorBox)errorBox.classList.add('hidden');
+  const observer=new MutationObserver(()=>{
+   if((results&&!results.classList.contains('hidden'))||(errorBox&&!errorBox.classList.contains('hidden'))){orb?.classList.remove('is-scanning');observer.disconnect()}
+  });
+  if(results)observer.observe(results,{attributes:true,attributeFilter:['class']});
+  if(errorBox)observer.observe(errorBox,{attributes:true,attributeFilter:['class']});
+  window.setTimeout(()=>{orb?.classList.remove('is-scanning');observer.disconnect()},15000);
+ },true);
+ languageSelect?.addEventListener('change',()=>{for(const [id,key] of [['export-report','exportReport'],['export-history','exportHistory'],['clear-history','clearHistory']])label(document.getElementById(id),key)});
+ checkHealth();
+})();
